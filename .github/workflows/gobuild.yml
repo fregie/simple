@@ -22,11 +22,14 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
 
-    - name: Setup protoc
-      uses: arduino/setup-protoc@v1.1.0
+    - name: Install Protoc
+      uses: arduino/setup-protoc@v1
 
     - name: install protoc-gen-go
-      run: go install github.com/golang/protobuf/protoc-gen-go
+      run: go install github.com/golang/protobuf/protoc-gen-go@latest
+
+    - name: Init submodules
+      run: git submodule update --init --recursive
 
     - name: Build
       run: make simple
