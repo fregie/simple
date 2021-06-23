@@ -15,6 +15,7 @@ type Session struct {
 	Proto         string
 	Index         string
 	ConfigType    int32
+	Config        string
 	SendRateLimit uint64
 	RecvRateLimit uint64
 	CustomOption  string
@@ -29,5 +30,5 @@ func genSessionID(proto, index string) string {
 	if len(str2) > 8 {
 		str2 = str2[:8]
 	}
-	return fmt.Sprintf("%s-%s-%s", str1, str2, string(tool.RandomString(sessionIDLength-len(proto)-len(index))))
+	return fmt.Sprintf("%s-%s-%s", str1, str2, string(tool.RandomString(sessionIDLength-len(str1)-len(str2))))
 }

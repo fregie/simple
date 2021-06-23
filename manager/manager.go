@@ -39,6 +39,12 @@ func (m *Manager) RegisterService(svc svcpb.InterfaceClient) error {
 	return nil
 }
 
+func (m *Manager) GetProtos() []string {
+	protos := make([]string, len(m.supportProtos))
+	copy(protos, m.supportProtos)
+	return protos
+}
+
 func (m *Manager) getService(name string) svcpb.InterfaceClient {
 	svc, ok := m.svcMap[name]
 	if !ok {
@@ -47,14 +53,14 @@ func (m *Manager) getService(name string) svcpb.InterfaceClient {
 	return svc
 }
 
-func (m *Manager) CreateSession(ctx context.Context, proto string, configType svcpb.ConfigType, opt svcpb.Option, customOpt string) ([]byte, error) {
+func (m *Manager) CreateSession(ctx context.Context, proto string, configType svcpb.ConfigType, opt *svcpb.Option, customOpt string) ([]byte, error) {
 	svc := m.getService(proto)
 	if svc == nil {
 		return nil, errors.New("Unknown proto")
 	}
 	rsp, err := svc.Create(ctx, &svcpb.CreateReq{
 		ConfigType:   configType,
-		Opt:          &opt,
+		Opt:          opt,
 		CustomOption: customOpt,
 	})
 	if err != nil {
@@ -65,13 +71,16 @@ func (m *Manager) CreateSession(ctx context.Context, proto string, configType sv
 	}
 
 	sess := &Session{
-		ID:            genSessionID(proto, rsp.Index),
-		Proto:         proto,
-		Index:         rsp.Index,
-		ConfigType:    int32(configType),
-		SendRateLimit: opt.SendRateLimit,
-		RecvRateLimit: opt.RecvRateLimit,
-		CustomOption:  customOpt,
+		ID:           genSessionID(proto, rsp.Index),
+		Proto:        proto,
+		Index:        rsp.Index,
+		ConfigType:   int32(rsp.Config.ConfigType),
+		Config:       string(rsp.Config.Config),
+		CustomOption: customOpt,
+	}
+	if opt != nil {
+		sess.SendRateLimit = opt.SendRateLimit
+		sess.RecvRateLimit = opt.RecvRateLimit
 	}
 	m.sessMap.Store(sess.ID, sess)
 

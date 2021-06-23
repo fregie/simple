@@ -9,8 +9,8 @@ import (
 
 	version "github.com/fregie/PrintVersion"
 	svcpb "github.com/fregie/simple-interface"
+	pb "github.com/fregie/simple/api"
 	"github.com/fregie/simple/manager"
-	pb "github.com/fregie/simple/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
@@ -69,7 +69,7 @@ func main() {
 
 	lis, err := net.Listen("tcp", conf.Addr)
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		Error.Fatalf("failed to listen: %v", err)
 	}
 	grpcServer := grpc.NewServer()
 	pb.RegisterSimpleAPIServer(grpcServer, &SimpleAPI{})

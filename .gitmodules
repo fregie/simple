@@ -1,0 +1,3 @@
+[submodule "simple-interface"]
+	path = simple-interface
+	url = git@github.com:fregie/simple-interface.git

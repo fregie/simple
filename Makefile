@@ -10,4 +10,11 @@ VERSION_PACKAGE_NAME := github.com/fregie/PrintVersion
 DESCRIBE := Simple server
 
 protobuf: 
-	protoc --go_out=plugins=grpc,paths=source_relative:. proto/*.proto
+	protoc --go_out=plugins=grpc,paths=source_relative:. api/*.proto
+	protoc --go_out=plugins=grpc,paths=source_relative:. simple-interface/*.proto
+
+adapter-trojan:
+	go build -o output/adapter-trojan ./adapter/trojan
+
+simple: protobuf
+	go build -o output/simple

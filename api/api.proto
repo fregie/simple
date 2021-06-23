@@ -1,0 +1,61 @@
+syntax = "proto3";
+package simple;
+
+import "simple-interface/interface.proto";
+
+option go_package = "github.com/fregie/simple/proto";
+
+service SimpleAPI {
+  rpc CreateSession (CreateSessionReq) returns (CreateSessionRsp);
+  rpc GetAllSessions (GetAllSessionsReq) returns (GetAllSessionsRsp);
+  rpc DeleteSession (DeleteSessionReq) returns (DeleteSessionRsp);
+  rpc GetProtos (GetProtosReq) returns (GetProtosRsp);
+}
+
+message CreateSessionReq {
+  string Proto = 1;
+  interface.ConfigType ConfigType = 2;
+  interface.Option Opt = 3;
+  string customOpt = 4;
+}
+message CreateSessionRsp {
+  Code Code = 1;
+  string Msg = 2;
+  string Config = 3;
+}
+
+message Session {
+  string ID = 1;
+  string Proto =2;
+  interface.ConfigType ConfigType = 3;
+  string Config = 4;
+  interface.Option Opt = 5;
+}
+
+message GetAllSessionsReq {}
+message GetAllSessionsRsp {
+  Code Code = 1;
+  string Msg = 2;
+  repeated Session Sessions = 3;
+}
+
+message DeleteSessionReq {
+  string ID = 1;
+}
+message DeleteSessionRsp {
+  Code Code = 1;
+  string Msg = 2;
+}
+
+message GetProtosReq {}
+message GetProtosRsp {
+  Code Code = 1;
+  string Msg = 2;
+  repeated string Protos = 3;
+}
+
+enum Code {
+  OK = 0;                  // 请求成功
+
+  InternalError = 10005;
+}
