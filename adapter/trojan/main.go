@@ -11,7 +11,8 @@ import (
 )
 
 var (
-	grpcAddr   = flag.String("a", "127.0.0.1:10001", "trojan grpc api addr")
+	grpcAddr   = flag.String("a", "127.0.0.1:10001", "listen addr")
+	trojanAddr = flag.String("t", "127.0.0.1:2552", "trojan grpc api addr")
 	configPath = flag.String("config", "", "trojan-go config path")
 )
 
@@ -22,7 +23,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	grpcServer := grpc.NewServer()
-	serivce, err := NewService(*configPath)
+	serivce, err := NewService(*configPath, *trojanAddr)
 	if err != nil {
 		log.Fatal(err)
 	}

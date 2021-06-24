@@ -24,7 +24,7 @@ type Service struct {
 	host string
 }
 
-func NewService(configPath string) (*Service, error) {
+func NewService(configPath, addr string) (*Service, error) {
 	f, err := os.Open(configPath)
 	if err != nil {
 		return nil, fmt.Errorf("open trojan config:" + err.Error())
@@ -38,7 +38,7 @@ func NewService(configPath string) (*Service, error) {
 	if err != nil {
 		return nil, fmt.Errorf("parse trajan json " + err.Error())
 	}
-	conn, err := grpc.Dial(fmt.Sprintf("%s:%d", manager.conf.API.Addr, manager.conf.API.Port), grpc.WithInsecure())
+	conn, err := grpc.Dial(addr, grpc.WithInsecure())
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,18 @@ func (s *Service) Name(_ context.Context, _ *svcpb.NameReq) (*svcpb.NameRsp, err
 }
 
 func (s *Service) CustomOptionSchema(_ context.Context, _ *svcpb.CustomOptionSchemaReq) (*svcpb.CustomOptionSchemaRsp, error) {
-	return &svcpb.CustomOptionSchemaRsp{}, nil
+	rsp := &svcpb.CustomOptionSchemaRsp{
+		Fields: []*svcpb.Field{
+			{Name: "verify_ssl", Type: svcpb.Type_Bool},
+		},
+	}
+	if s.conf.Websocket.Enable {
+		rsp.Fields = append(rsp.Fields, &svcpb.Field{Name: "enable_websocket", Type: svcpb.Type_Bool})
+	}
+	if s.conf.Mux.Enable {
+		rsp.Fields = append(rsp.Fields, &svcpb.Field{Name: "enable_mux", Type: svcpb.Type_Bool})
+	}
+	return rsp, nil
 }
 
 func (s *Service) SetMetadata(_ context.Context, req *svcpb.SetMetadataReq) (rsp *svcpb.SetMetadataRsp, e error) {
