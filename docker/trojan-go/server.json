@@ -1,0 +1,29 @@
+{
+  "run_type": "server",
+  "local_addr": "0.0.0.0",
+  "local_port": 2443,
+  "remote_addr": "www.bing.com",
+  "remote_port": 80,
+  "sqlite": "/opt/trojan/trojan.db",
+  "password": [
+      "password1"
+  ],
+  "ssl": {
+      "cert": "/etc/ssl/certs/simple.fregie.cn.crt",
+      "key": "/etc/ssl/certs/simple.fregie.cn.key"
+  },
+  "mux": {
+      "enabled": true,
+      "concurrency": 4,
+      "idle_timeout": 60
+  },
+  "websocket": {
+      "enabled": true,
+      "path": "/rainbow/mika"
+  },
+  "api": {
+      "enabled": true,
+      "api_addr": "0.0.0.0",
+      "api_port": 2552
+  }
+}

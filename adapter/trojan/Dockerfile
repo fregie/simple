@@ -11,5 +11,6 @@ COPY --from=build-env /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=build-env /go/src/trojan/adapter-trojan /adapter-trojan
 
 ENV ADDR "0.0.0.0:10001"
+ENV TROJAN_ADDR "127.0.0.1:1552"
 
-ENTRYPOINT [ "/bin/sh", "-c", "/adapter-trojan -a ${ADDR} -config /server.json" ]
+ENTRYPOINT [ "/bin/sh", "-c", "/adapter-trojan -a ${ADDR} -t ${TROJAN_ADDR} -config /server.json" ]

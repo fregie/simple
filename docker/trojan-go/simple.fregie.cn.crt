@@ -1,0 +1,83 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 630 (0x276)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN=ca.fobwifi.com
+        Validity
+            Not Before: Jun 24 14:04:44 2021 GMT
+            Not After : May 31 14:04:44 2121 GMT
+        Subject: CN=simple.fregie.cn
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:cf:54:1f:89:36:56:d4:ad:65:b5:f1:ce:05:54:
+                    17:47:77:f8:7b:ea:f1:11:53:66:b1:8e:4b:47:6a:
+                    56:d2:08:94:77:d5:88:fb:d1:c8:4b:78:2c:4a:12:
+                    aa:95:1b:29:4b:3b:6d:5c:91:6f:03:f0:bb:d4:50:
+                    78:f6:4f:db:a1:dd:d9:7c:c0:80:87:dc:66:05:a0:
+                    10:19:7a:f5:79:88:5f:11:25:17:4c:d4:dd:14:60:
+                    52:5e:c6:08:98:b5:d4:dc:3c:07:d2:1e:90:0a:6c:
+                    28:58:7b:57:bd:9b:c0:2f:5c:03:df:47:6c:3f:03:
+                    39:07:de:b4:06:78:e8:33:27:24:9f:31:bd:a2:0b:
+                    2d:0f:a1:d1:9a:37:1a:28:ea:3a:52:7a:5f:e7:1f:
+                    43:85:62:07:12:ea:27:ab:73:7d:f3:6a:00:84:b3:
+                    da:e5:4c:9f:82:62:18:80:41:df:24:51:40:e7:dc:
+                    cb:e0:50:f8:61:20:d2:db:db:2b:31:f4:40:63:d0:
+                    24:d1:f5:4b:7d:40:a3:45:36:96:2c:74:16:a2:23:
+                    ef:4b:be:a1:d1:2d:c0:ba:53:b0:fb:7a:99:77:1c:
+                    99:c7:21:29:95:ee:db:c5:3f:26:e3:f2:7e:b7:9a:
+                    69:de:fa:23:b9:0a:e0:3b:e5:40:97:c1:27:91:94:
+                    ee:e3
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+                B0:6C:F9:00:2B:45:61:39:AE:C0:A6:91:04:ED:4B:DE:33:B7:C4:10
+            X509v3 Authority Key Identifier: 
+                keyid:B2:B7:B6:FB:50:3C:E0:6D:26:A2:83:06:58:A9:51:6D:38:3D:B1:31
+                DirName:/CN=ca.fobwifi.com
+                serial:BE:F8:75:39:C8:6E:12:08
+
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Key Usage: 
+                Digital Signature, Key Encipherment
+    Signature Algorithm: sha256WithRSAEncryption
+         64:9d:64:1b:d3:2d:86:3e:b3:ef:35:e2:54:bc:52:41:59:2f:
+         15:9c:a6:22:34:d0:8f:6f:2d:00:91:6a:37:4c:46:fe:4b:c4:
+         ce:71:22:0c:3f:02:bc:5b:ed:15:46:c8:50:70:a8:47:ee:92:
+         ae:d5:9b:da:cd:96:82:39:3f:24:67:83:05:95:f3:33:84:7d:
+         02:f7:d5:ad:68:25:3e:3a:92:96:f0:de:48:17:f2:2a:0e:92:
+         14:b1:b4:3b:92:0c:d0:ea:61:1a:c2:37:eb:53:47:b5:97:3b:
+         1a:0e:cf:ed:cc:2b:ff:8c:f5:0a:44:2e:73:dd:9b:ef:1f:63:
+         1f:f1:e2:fa:99:c4:74:45:2e:63:99:96:3e:ac:35:90:45:5c:
+         0b:ed:31:d2:29:34:be:ae:43:ac:00:5d:71:97:ab:5d:46:04:
+         ff:47:a2:2b:3a:2c:80:c3:bb:bd:42:08:2e:58:bf:ff:b1:d8:
+         58:19:03:24:17:2b:73:19:1b:5a:a5:ac:7a:5c:df:1c:b3:01:
+         f7:e8:11:4f:7b:0b:52:8a:3a:f7:a3:37:71:07:6f:2d:1c:d8:
+         41:71:23:72:10:ed:a0:10:a0:f8:6a:09:3b:57:bb:c1:4f:73:
+         61:f1:2c:6a:42:a9:ef:56:96:03:5a:6d:ba:7d:5a:15:1f:50:
+         a1:bf:ac:1d
+-----BEGIN CERTIFICATE-----
+MIIDTTCCAjWgAwIBAgICAnYwDQYJKoZIhvcNAQELBQAwGTEXMBUGA1UEAwwOY2Eu
+Zm9id2lmaS5jb20wIBcNMjEwNjI0MTQwNDQ0WhgPMjEyMTA1MzExNDA0NDRaMBsx
+GTAXBgNVBAMMEHNpbXBsZS5mcmVnaWUuY24wggEiMA0GCSqGSIb3DQEBAQUAA4IB
+DwAwggEKAoIBAQDPVB+JNlbUrWW18c4FVBdHd/h76vERU2axjktHalbSCJR31Yj7
+0chLeCxKEqqVGylLO21ckW8D8LvUUHj2T9uh3dl8wICH3GYFoBAZevV5iF8RJRdM
+1N0UYFJexgiYtdTcPAfSHpAKbChYe1e9m8AvXAPfR2w/AzkH3rQGeOgzJySfMb2i
+Cy0PodGaNxoo6jpSel/nH0OFYgcS6ierc33zagCEs9rlTJ+CYhiAQd8kUUDn3Mvg
+UPhhINLb2ysx9EBj0CTR9Ut9QKNFNpYsdBaiI+9LvqHRLcC6U7D7epl3HJnHISmV
+7tvFPybj8n63mmne+iO5CuA75UCXwSeRlO7jAgMBAAGjgZowgZcwCQYDVR0TBAIw
+ADAdBgNVHQ4EFgQUsGz5ACtFYTmuwKaRBO1L3jO3xBAwSQYDVR0jBEIwQIAUsre2
++1A84G0mooMGWKlRbTg9sTGhHaQbMBkxFzAVBgNVBAMMDmNhLmZvYndpZmkuY29t
+ggkAvvh1OchuEggwEwYDVR0lBAwwCgYIKwYBBQUHAwEwCwYDVR0PBAQDAgWgMA0G
+CSqGSIb3DQEBCwUAA4IBAQBknWQb0y2GPrPvNeJUvFJBWS8VnKYiNNCPby0AkWo3
+TEb+S8TOcSIMPwK8W+0VRshQcKhH7pKu1ZvazZaCOT8kZ4MFlfMzhH0C99WtaCU+
+OpKW8N5IF/IqDpIUsbQ7kgzQ6mEawjfrU0e1lzsaDs/tzCv/jPUKRC5z3ZvvH2Mf
+8eL6mcR0RS5jmZY+rDWQRVwL7THSKTS+rkOsAF1xl6tdRgT/R6IrOiyAw7u9Qggu
+WL//sdhYGQMkFytzGRtapax6XN8cswH36BFPewtSijr3ozdxB28tHNhBcSNyEO2g
+EKD4agk7V7vBT3Nh8SxqQqnvVpYDWm26fVoVH1Chv6wd
+-----END CERTIFICATE-----
