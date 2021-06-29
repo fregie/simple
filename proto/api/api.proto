@@ -1,13 +1,18 @@
 syntax = "proto3";
 package simple;
 
+import "google/api/annotations.proto";
 import "simple-interface/interface.proto";
 
-option go_package = "github.com/fregie/simple/proto";
+option go_package = "github.com/fregie/simple/proto/gen/go/api";
 
 service SimpleAPI {
   rpc CreateSession (CreateSessionReq) returns (CreateSessionRsp);
-  rpc GetAllSessions (GetAllSessionsReq) returns (GetAllSessionsRsp);
+  rpc GetAllSessions (GetAllSessionsReq) returns (GetAllSessionsRsp){
+    option (google.api.http) = {
+      get: "/v1/sessions"
+    };
+  };
   rpc DeleteSession (DeleteSessionReq) returns (DeleteSessionRsp);
   rpc GetProtos (GetProtosReq) returns (GetProtosRsp);
 }

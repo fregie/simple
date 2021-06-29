@@ -9,8 +9,9 @@ import (
 	"io/ioutil"
 	"os"
 
+	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
+
 	tool "github.com/fregie/gotool"
-	svcpb "github.com/fregie/simple-interface"
 	trojanpb "github.com/p4gefau1t/trojan-go/api/service"
 	"github.com/p4gefau1t/trojan-go/common"
 	"google.golang.org/grpc"
@@ -59,14 +60,17 @@ func (s *Service) CustomOptionSchema(_ context.Context, _ *svcpb.CustomOptionSch
 		Fields: []*svcpb.Field{
 			{Name: "ssl_verify", Type: svcpb.Type_Bool},
 			{Name: "ssl_sni", Type: svcpb.Type_String},
-			{Name: "mux_enable", Type: svcpb.Type_Bool},
 		},
 	}
 	if s.conf.Websocket.Enable {
 		rsp.Fields = append(rsp.Fields, &svcpb.Field{Name: "enable_websocket", Type: svcpb.Type_Bool})
+		rsp.Fields = append(rsp.Fields, &svcpb.Field{Name: "websocket_path", Type: svcpb.Type_String})
+		rsp.Fields = append(rsp.Fields, &svcpb.Field{Name: "websocket_host", Type: svcpb.Type_String})
 	}
 	if s.conf.Mux.Enable {
 		rsp.Fields = append(rsp.Fields, &svcpb.Field{Name: "enable_mux", Type: svcpb.Type_Bool})
+		rsp.Fields = append(rsp.Fields, &svcpb.Field{Name: "mux_concurrency", Type: svcpb.Type_Number})
+		rsp.Fields = append(rsp.Fields, &svcpb.Field{Name: "mux_idle_timeout", Type: svcpb.Type_Number})
 	}
 	return rsp, nil
 }

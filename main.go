@@ -7,10 +7,11 @@ import (
 	"net"
 	"os"
 
+	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
+
 	version "github.com/fregie/PrintVersion"
-	svcpb "github.com/fregie/simple-interface"
-	pb "github.com/fregie/simple/api"
 	"github.com/fregie/simple/manager"
+	pb "github.com/fregie/simple/proto/gen/go/api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )

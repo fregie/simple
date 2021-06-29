@@ -3,8 +3,9 @@ package manager
 import (
 	"fmt"
 
+	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
+
 	tool "github.com/fregie/gotool"
-	svcpb "github.com/fregie/simple-interface"
 )
 
 const (

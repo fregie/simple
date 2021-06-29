@@ -3,11 +3,14 @@ package main
 import (
 	"context"
 
-	svcpb "github.com/fregie/simple-interface"
-	proto "github.com/fregie/simple/api"
+	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
+
+	proto "github.com/fregie/simple/proto/gen/go/api"
 )
 
-type SimpleAPI struct{}
+type SimpleAPI struct {
+	proto.UnimplementedSimpleAPIServer
+}
 
 func (s *SimpleAPI) CreateSession(ctx context.Context, req *proto.CreateSessionReq) (rsp *proto.CreateSessionRsp, e error) {
 	rsp = &proto.CreateSessionRsp{Code: proto.Code_OK}
