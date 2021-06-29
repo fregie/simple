@@ -23,6 +23,7 @@ type Service struct {
 	srv  trojanpb.TrojanServerServiceClient
 	conf TrojanServerConfig
 	host string
+	svcpb.UnimplementedInterfaceServer
 }
 
 func NewService(configPath, addr string) (*Service, error) {

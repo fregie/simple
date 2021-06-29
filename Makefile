@@ -16,5 +16,5 @@ protobuf:
 adapter-trojan:
 	go build -o output/adapter-trojan ./adapter/trojan
 
-simple: protobuf
+simple:
 	go build -o output/simple
