@@ -8,6 +8,7 @@ import (
 
 type Config struct {
 	Addr     string   `yaml:"grpc_addr"`
+	Sqlite   string   `yaml:"sqlite"`
 	Services []string `yaml:"services"`
 }
 

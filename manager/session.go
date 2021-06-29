@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	tool "github.com/fregie/gotool"
+	svcpb "github.com/fregie/simple-interface"
 )
 
 const (
@@ -11,7 +12,7 @@ const (
 )
 
 type Session struct {
-	ID            string
+	ID            string `gorm:"primary_key"`
 	Proto         string
 	Index         string
 	ConfigType    int32
@@ -31,4 +32,11 @@ func genSessionID(proto, index string) string {
 		str2 = str2[:8]
 	}
 	return fmt.Sprintf("%s-%s-%s", str1, str2, string(tool.RandomString(sessionIDLength-len(str1)-len(str2))))
+}
+
+func (s *Session) convertOption() *svcpb.Option {
+	return &svcpb.Option{
+		SendRateLimit: s.SendRateLimit,
+		RecvRateLimit: s.RecvRateLimit,
+	}
 }

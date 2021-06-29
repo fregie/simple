@@ -1,5 +1,4 @@
 FROM golang:1.16.5-alpine3.13 AS build-env
-RUN apk --no-cache add ca-certificates
 WORKDIR /go/src/trojan
 COPY . .
 RUN go mod init github.com/fregie/simple/adapter/trojan && \
@@ -7,7 +6,7 @@ RUN go mod init github.com/fregie/simple/adapter/trojan && \
   go build -o adapter-trojan
 
 FROM alpine:latest
-COPY --from=build-env /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+RUN apk --no-cache add ca-certificates
 COPY --from=build-env /go/src/trojan/adapter-trojan /adapter-trojan
 
 ENV ADDR "0.0.0.0:10001"

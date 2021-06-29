@@ -9,6 +9,7 @@ import (
 type TrojanServerConfig struct {
 	LocalAddr string `json:"local_addr"`
 	LocalPort int    `json:"local_port"`
+	Sqlite    string `json:"sqlite"`
 	SSL       struct {
 		SNI string `json:"sni"`
 	} `json:"ssl"`

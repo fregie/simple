@@ -50,10 +50,16 @@ func (s *Service) Name(_ context.Context, _ *svcpb.NameReq) (*svcpb.NameRsp, err
 	return &svcpb.NameRsp{Name: Name}, nil
 }
 
+func (s *Service) IsSupportPersistence(_ context.Context, _ *svcpb.IsSupportPersistenceReq) (*svcpb.IsSupportPersistenceRsp, error) {
+	return &svcpb.IsSupportPersistenceRsp{IsSupport: s.conf.Sqlite != ""}, nil
+}
+
 func (s *Service) CustomOptionSchema(_ context.Context, _ *svcpb.CustomOptionSchemaReq) (*svcpb.CustomOptionSchemaRsp, error) {
 	rsp := &svcpb.CustomOptionSchemaRsp{
 		Fields: []*svcpb.Field{
-			{Name: "verify_ssl", Type: svcpb.Type_Bool},
+			{Name: "ssl_verify", Type: svcpb.Type_Bool},
+			{Name: "ssl_sni", Type: svcpb.Type_String},
+			{Name: "mux_enable", Type: svcpb.Type_Bool},
 		},
 	}
 	if s.conf.Websocket.Enable {

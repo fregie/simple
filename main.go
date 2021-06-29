@@ -51,7 +51,10 @@ func main() {
 	if err != nil {
 		Error.Fatalf("Load config failed: %s", err)
 	}
-	sessManager = manager.NewManager()
+	sessManager, err = manager.NewManager(conf.Sqlite)
+	if err != nil {
+		Error.Fatal(err)
+	}
 
 	for _, addr := range conf.Services {
 		conn, err := grpc.Dial(addr, grpc.WithInsecure())
