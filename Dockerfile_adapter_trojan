@@ -1,9 +1,8 @@
 FROM golang:1.16.5-alpine3.13 AS build-env
+RUN apk --no-cache add git
 WORKDIR /go/src/trojan
 COPY . .
-RUN go mod init github.com/fregie/simple/adapter/trojan && \
-  go mod tidy && \
-  go build -o adapter-trojan
+RUN go build -o adapter-trojan ./adapter/trojan
 
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates

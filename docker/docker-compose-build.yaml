@@ -16,7 +16,9 @@ services:
       - simple
 
   adapter-trojan:
-    image: fregie/adapter-trojan:latest
+    build:
+      context: ../
+      dockerfile: Dockerfile_adapter_trojan
     depends_on:
       - trojan
     ports:
@@ -31,7 +33,9 @@ services:
       - simple
 
   simple:
-    image: fregie/simple:latest
+    build:
+      context: ../
+      dockerfile: Dockerfile
     depends_on:
       - adapter-trojan
       - trojan

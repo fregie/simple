@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Protocol Documentation</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic"/>
+    <style>
+      body {
+        width: 60em;
+        margin: 1em auto;
+        color: #222;
+        font-family: "Ubuntu", sans-serif;
+        padding-bottom: 4em;
+      }
+
+      h1 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      h2 {
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+        margin: 1.5em 0;
+      }
+
+      h3 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      a {
+        text-decoration: none;
+        color: #567e25;
+      }
+
+      table {
+        width: 100%;
+        font-size: 80%;
+        border-collapse: collapse;
+      }
+
+      thead {
+        font-weight: 700;
+        background-color: #dcdcdc;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #fbfbfb;
+      }
+
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5ex 2ex;
+      }
+
+      td p {
+        text-indent: 1em;
+        margin: 0;
+      }
+
+      td p:nth-child(1) {
+        text-indent: 0;  
+      }
+
+       
+      .field-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .field-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .field-table td:nth-child(3) {  
+        width: 6em;
+      }
+      .field-table td:nth-child(4) {  
+        width: auto;
+      }
+
+       
+      .extension-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(3) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(4) {  
+        width: 5em;
+      }
+      .extension-table td:nth-child(5) {  
+        width: auto;
+      }
+
+       
+      .enum-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .enum-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .enum-table td:nth-child(3) {  
+        width: auto;
+      }
+
+       
+      .scalar-value-types-table tr {
+        height: 3em;
+      }
+
+       
+      #toc-container ul {
+        list-style-type: none;
+        padding-left: 1em;
+        line-height: 180%;
+        margin: 0;
+      }
+      #toc > li > a {
+        font-weight: bold;
+      }
+
+       
+      .file-heading {
+        width: 100%;
+        display: table;
+        border-bottom: 1px solid #aaa;
+        margin: 4em 0 1.5em 0;
+      }
+      .file-heading h2 {
+        border: none;
+        display: table-cell;
+      }
+      .file-heading a {
+        text-align: right;
+        display: table-cell;
+      }
+
+       
+      .badge {
+        width: 1.6em;
+        height: 1.6em;
+        display: inline-block;
+
+        line-height: 1.6em;
+        text-align: center;
+        font-weight: bold;
+        font-size: 60%;
+
+        color: #89ba48;
+        background-color: #dff0c8;
+
+        margin: 0.5ex 1em 0.5ex -1em;
+        border: 1px solid #fbfbfb;
+        border-radius: 1ex;
+      }
+    </style>
+
+    
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+  </head>
+
+  <body>
+
+    <h1 id="title">Protocol Documentation</h1>
+
+    <h2>Table of Contents</h2>
+
+    <div id="toc-container">
+      <ul id="toc">
+        
+          
+          <li>
+            <a href="#simple-interface%2finterface.proto">simple-interface/interface.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#interface.Config"><span class="badge">M</span>Config</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.CreateByConfigReq"><span class="badge">M</span>CreateByConfigReq</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.CreateByConfigRsp"><span class="badge">M</span>CreateByConfigRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.CreateReq"><span class="badge">M</span>CreateReq</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.CreateRsp"><span class="badge">M</span>CreateRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.CustomOptionSchemaReq"><span class="badge">M</span>CustomOptionSchemaReq</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.CustomOptionSchemaRsp"><span class="badge">M</span>CustomOptionSchemaRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.DeleteReq"><span class="badge">M</span>DeleteReq</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.DeleteRsp"><span class="badge">M</span>DeleteRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.Field"><span class="badge">M</span>Field</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.GetAllReq"><span class="badge">M</span>GetAllReq</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.GetAllRsp"><span class="badge">M</span>GetAllRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.GetAllRsp.AllEntry"><span class="badge">M</span>GetAllRsp.AllEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.GetReq"><span class="badge">M</span>GetReq</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.GetRsp"><span class="badge">M</span>GetRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.GetStatReq"><span class="badge">M</span>GetStatReq</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.GetStatRsp"><span class="badge">M</span>GetStatRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.IsSupportPersistenceReq"><span class="badge">M</span>IsSupportPersistenceReq</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.IsSupportPersistenceRsp"><span class="badge">M</span>IsSupportPersistenceRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.NameReq"><span class="badge">M</span>NameReq</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.NameRsp"><span class="badge">M</span>NameRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.Option"><span class="badge">M</span>Option</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.SetMetadataReq"><span class="badge">M</span>SetMetadataReq</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.SetMetadataRsp"><span class="badge">M</span>SetMetadataRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.Stat"><span class="badge">M</span>Stat</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.UpdateOptionReq"><span class="badge">M</span>UpdateOptionReq</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.UpdateOptionRsp"><span class="badge">M</span>UpdateOptionRsp</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#interface.Code"><span class="badge">E</span>Code</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.ConfigType"><span class="badge">E</span>ConfigType</a>
+                </li>
+              
+                <li>
+                  <a href="#interface.Type"><span class="badge">E</span>Type</a>
+                </li>
+              
+              
+              
+                <li>
+                  <a href="#interface.Interface"><span class="badge">S</span>Interface</a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#api%2fapi.proto">api/api.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#simple.CreateSessionReq"><span class="badge">M</span>CreateSessionReq</a>
+                </li>
+              
+                <li>
+                  <a href="#simple.CreateSessionRsp"><span class="badge">M</span>CreateSessionRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#simple.DeleteSessionReq"><span class="badge">M</span>DeleteSessionReq</a>
+                </li>
+              
+                <li>
+                  <a href="#simple.DeleteSessionRsp"><span class="badge">M</span>DeleteSessionRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#simple.GetAllSessionsReq"><span class="badge">M</span>GetAllSessionsReq</a>
+                </li>
+              
+                <li>
+                  <a href="#simple.GetAllSessionsRsp"><span class="badge">M</span>GetAllSessionsRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#simple.GetProtosReq"><span class="badge">M</span>GetProtosReq</a>
+                </li>
+              
+                <li>
+                  <a href="#simple.GetProtosRsp"><span class="badge">M</span>GetProtosRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#simple.Session"><span class="badge">M</span>Session</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#simple.Code"><span class="badge">E</span>Code</a>
+                </li>
+              
+              
+              
+                <li>
+                  <a href="#simple.SimpleAPI"><span class="badge">S</span>SimpleAPI</a>
+                </li>
+              
+            </ul>
+          </li>
+        
+        <li><a href="#scalar-value-types">Scalar Value Types</a></li>
+      </ul>
+    </div>
+
+    
+      
+      <div class="file-heading">
+        <h2 id="simple-interface/interface.proto">simple-interface/interface.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="interface.Config">Config</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ConfigType</td>
+                  <td><a href="#interface.ConfigType">ConfigType</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Config</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.CreateByConfigReq">CreateByConfigReq</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Index</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Config</td>
+                  <td><a href="#interface.Config">Config</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Opt</td>
+                  <td><a href="#interface.Option">Option</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>CustomOption</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>in json </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.CreateByConfigRsp">CreateByConfigRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Code</td>
+                  <td><a href="#interface.Code">Code</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Msg</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.CreateReq">CreateReq</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Opt</td>
+                  <td><a href="#interface.Option">Option</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ConfigType</td>
+                  <td><a href="#interface.ConfigType">ConfigType</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>CustomOption</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>in json </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.CreateRsp">CreateRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Code</td>
+                  <td><a href="#interface.Code">Code</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Msg</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Index</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Config</td>
+                  <td><a href="#interface.Config">Config</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.CustomOptionSchemaReq">CustomOptionSchemaReq</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id="interface.CustomOptionSchemaRsp">CustomOptionSchemaRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Fields</td>
+                  <td><a href="#interface.Field">Field</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.DeleteReq">DeleteReq</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Index</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.DeleteRsp">DeleteRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Code</td>
+                  <td><a href="#interface.Code">Code</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Msg</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.Field">Field</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Type</td>
+                  <td><a href="#interface.Type">Type</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>optional</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.GetAllReq">GetAllReq</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id="interface.GetAllRsp">GetAllRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Code</td>
+                  <td><a href="#interface.Code">Code</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Msg</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>All</td>
+                  <td><a href="#interface.GetAllRsp.AllEntry">GetAllRsp.AllEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>Index, Config </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.GetAllRsp.AllEntry">GetAllRsp.AllEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#interface.Config">Config</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.GetReq">GetReq</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Index</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.GetRsp">GetRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Code</td>
+                  <td><a href="#interface.Code">Code</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Msg</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Index</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Config</td>
+                  <td><a href="#interface.Config">Config</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.GetStatReq">GetStatReq</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Index</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.GetStatRsp">GetStatRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Code</td>
+                  <td><a href="#interface.Code">Code</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Msg</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Stat</td>
+                  <td><a href="#interface.Stat">Stat</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.IsSupportPersistenceReq">IsSupportPersistenceReq</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id="interface.IsSupportPersistenceRsp">IsSupportPersistenceRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>IsSupport</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.NameReq">NameReq</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id="interface.NameRsp">NameRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.Option">Option</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>SendRateLimit</td>
+                  <td><a href="#uint64">uint64</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>RecvRateLimit</td>
+                  <td><a href="#uint64">uint64</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.SetMetadataReq">SetMetadataReq</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>IP</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Domain</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.SetMetadataRsp">SetMetadataRsp</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id="interface.Stat">Stat</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>SendTraffic</td>
+                  <td><a href="#uint64">uint64</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>RecvTraffic</td>
+                  <td><a href="#uint64">uint64</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.UpdateOptionReq">UpdateOptionReq</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Index</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Opt</td>
+                  <td><a href="#interface.Option">Option</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="interface.UpdateOptionRsp">UpdateOptionRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Code</td>
+                  <td><a href="#interface.Code">Code</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Msg</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+        <h3 id="interface.Code">Code</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>OK</td>
+                <td>0</td>
+                <td><p>请求成功</p></td>
+              </tr>
+            
+              <tr>
+                <td>NotFound</td>
+                <td>10404</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Fail</td>
+                <td>10500</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="interface.ConfigType">ConfigType</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>JSON</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>YAML</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>URL</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id="interface.Type">Type</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>String</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Number</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Bool</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>StringArray</td>
+                <td>3</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+
+      
+        <h3 id="interface.Interface">Interface</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Name</td>
+                <td><a href="#interface.NameReq">NameReq</a></td>
+                <td><a href="#interface.NameRsp">NameRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>IsSupportPersistence</td>
+                <td><a href="#interface.IsSupportPersistenceReq">IsSupportPersistenceReq</a></td>
+                <td><a href="#interface.IsSupportPersistenceRsp">IsSupportPersistenceRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>CustomOptionSchema</td>
+                <td><a href="#interface.CustomOptionSchemaReq">CustomOptionSchemaReq</a></td>
+                <td><a href="#interface.CustomOptionSchemaRsp">CustomOptionSchemaRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>SetMetadata</td>
+                <td><a href="#interface.SetMetadataReq">SetMetadataReq</a></td>
+                <td><a href="#interface.SetMetadataRsp">SetMetadataRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Create</td>
+                <td><a href="#interface.CreateReq">CreateReq</a></td>
+                <td><a href="#interface.CreateRsp">CreateRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>CreateByConfig</td>
+                <td><a href="#interface.CreateByConfigReq">CreateByConfigReq</a></td>
+                <td><a href="#interface.CreateByConfigRsp">CreateByConfigRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Get</td>
+                <td><a href="#interface.GetReq">GetReq</a></td>
+                <td><a href="#interface.GetRsp">GetRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Delete</td>
+                <td><a href="#interface.DeleteReq">DeleteReq</a></td>
+                <td><a href="#interface.DeleteRsp">DeleteRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>GetAll</td>
+                <td><a href="#interface.GetAllReq">GetAllReq</a></td>
+                <td><a href="#interface.GetAllRsp">GetAllRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>UpdateOption</td>
+                <td><a href="#interface.UpdateOptionReq">UpdateOptionReq</a></td>
+                <td><a href="#interface.UpdateOptionRsp">UpdateOptionRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>GetStat</td>
+                <td><a href="#interface.GetStatReq">GetStatReq</a></td>
+                <td><a href="#interface.GetStatRsp">GetStatRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
+    
+      
+      <div class="file-heading">
+        <h2 id="api/api.proto">api/api.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="simple.CreateSessionReq">CreateSessionReq</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Proto</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ConfigType</td>
+                  <td><a href="#interface.ConfigType">interface.ConfigType</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Opt</td>
+                  <td><a href="#interface.Option">interface.Option</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>customOpt</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="simple.CreateSessionRsp">CreateSessionRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Code</td>
+                  <td><a href="#simple.Code">Code</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Msg</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Config</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="simple.DeleteSessionReq">DeleteSessionReq</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>ID</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="simple.DeleteSessionRsp">DeleteSessionRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Code</td>
+                  <td><a href="#simple.Code">Code</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Msg</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="simple.GetAllSessionsReq">GetAllSessionsReq</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id="simple.GetAllSessionsRsp">GetAllSessionsRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Code</td>
+                  <td><a href="#simple.Code">Code</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Msg</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Sessions</td>
+                  <td><a href="#simple.Session">Session</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="simple.GetProtosReq">GetProtosReq</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id="simple.GetProtosRsp">GetProtosRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Code</td>
+                  <td><a href="#simple.Code">Code</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Msg</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Protos</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="simple.Session">Session</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>ID</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Proto</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ConfigType</td>
+                  <td><a href="#interface.ConfigType">interface.ConfigType</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Config</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Opt</td>
+                  <td><a href="#interface.Option">interface.Option</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+        <h3 id="simple.Code">Code</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>OK</td>
+                <td>0</td>
+                <td><p>请求成功</p></td>
+              </tr>
+            
+              <tr>
+                <td>InternalError</td>
+                <td>10005</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+
+      
+        <h3 id="simple.SimpleAPI">SimpleAPI</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>CreateSession</td>
+                <td><a href="#simple.CreateSessionReq">CreateSessionReq</a></td>
+                <td><a href="#simple.CreateSessionRsp">CreateSessionRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>GetAllSessions</td>
+                <td><a href="#simple.GetAllSessionsReq">GetAllSessionsReq</a></td>
+                <td><a href="#simple.GetAllSessionsRsp">GetAllSessionsRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>DeleteSession</td>
+                <td><a href="#simple.DeleteSessionReq">DeleteSessionReq</a></td>
+                <td><a href="#simple.DeleteSessionRsp">DeleteSessionRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>GetProtos</td>
+                <td><a href="#simple.GetProtosReq">GetProtosReq</a></td>
+                <td><a href="#simple.GetProtosRsp">GetProtosRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
+          
+          
+          <h4>Methods with HTTP bindings</h4>
+          <table>
+            <thead>
+              <tr>
+                <td>Method Name</td>
+                <td>Method</td>
+                <td>Pattern</td>
+                <td>Body</td>
+              </tr>
+            </thead>
+            <tbody>
+            
+              
+              
+              <tr>
+                <td>CreateSession</td>
+                <td>POST</td>
+                <td>/v1/session</td>
+                <td>*</td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>GetAllSessions</td>
+                <td>GET</td>
+                <td>/v1/session</td>
+                <td></td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>DeleteSession</td>
+                <td>DELETE</td>
+                <td>/v1/session</td>
+                <td></td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>GetProtos</td>
+                <td>GET</td>
+                <td>/v1/proto</td>
+                <td></td>
+              </tr>
+              
+            
+            </tbody>
+          </table>
+          
+        
+    
+
+    <h2 id="scalar-value-types">Scalar Value Types</h2>
+    <table class="scalar-value-types-table">
+      <thead>
+        <tr><td>.proto Type</td><td>Notes</td><td>C++</td><td>Java</td><td>Python</td><td>Go</td><td>C#</td><td>PHP</td><td>Ruby</td></tr>
+      </thead>
+      <tbody>
+        
+          <tr id="double">
+            <td>double</td>
+            <td></td>
+            <td>double</td>
+            <td>double</td>
+            <td>float</td>
+            <td>float64</td>
+            <td>double</td>
+            <td>float</td>
+            <td>Float</td>
+          </tr>
+        
+          <tr id="float">
+            <td>float</td>
+            <td></td>
+            <td>float</td>
+            <td>float</td>
+            <td>float</td>
+            <td>float32</td>
+            <td>float</td>
+            <td>float</td>
+            <td>Float</td>
+          </tr>
+        
+          <tr id="int32">
+            <td>int32</td>
+            <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="int64">
+            <td>int64</td>
+            <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="uint32">
+            <td>uint32</td>
+            <td>Uses variable-length encoding.</td>
+            <td>uint32</td>
+            <td>int</td>
+            <td>int/long</td>
+            <td>uint32</td>
+            <td>uint</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="uint64">
+            <td>uint64</td>
+            <td>Uses variable-length encoding.</td>
+            <td>uint64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>uint64</td>
+            <td>ulong</td>
+            <td>integer/string</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="sint32">
+            <td>sint32</td>
+            <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="sint64">
+            <td>sint64</td>
+            <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="fixed32">
+            <td>fixed32</td>
+            <td>Always four bytes. More efficient than uint32 if values are often greater than 2^28.</td>
+            <td>uint32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>uint32</td>
+            <td>uint</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="fixed64">
+            <td>fixed64</td>
+            <td>Always eight bytes. More efficient than uint64 if values are often greater than 2^56.</td>
+            <td>uint64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>uint64</td>
+            <td>ulong</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="sfixed32">
+            <td>sfixed32</td>
+            <td>Always four bytes.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="sfixed64">
+            <td>sfixed64</td>
+            <td>Always eight bytes.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="bool">
+            <td>bool</td>
+            <td></td>
+            <td>bool</td>
+            <td>boolean</td>
+            <td>boolean</td>
+            <td>bool</td>
+            <td>bool</td>
+            <td>boolean</td>
+            <td>TrueClass/FalseClass</td>
+          </tr>
+        
+          <tr id="string">
+            <td>string</td>
+            <td>A string must always contain UTF-8 encoded or 7-bit ASCII text.</td>
+            <td>string</td>
+            <td>String</td>
+            <td>str/unicode</td>
+            <td>string</td>
+            <td>string</td>
+            <td>string</td>
+            <td>String (UTF-8)</td>
+          </tr>
+        
+          <tr id="bytes">
+            <td>bytes</td>
+            <td>May contain any arbitrary sequence of bytes.</td>
+            <td>string</td>
+            <td>ByteString</td>
+            <td>str</td>
+            <td>[]byte</td>
+            <td>ByteString</td>
+            <td>string</td>
+            <td>String (ASCII-8BIT)</td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </body>
+</html>
+

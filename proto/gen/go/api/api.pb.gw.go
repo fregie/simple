@@ -83,15 +83,18 @@ func local_request_SimpleAPI_GetAllSessions_0(ctx context.Context, marshaler run
 
 }
 
+var (
+	filter_SimpleAPI_DeleteSession_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
 func request_SimpleAPI_DeleteSession_0(ctx context.Context, marshaler runtime.Marshaler, client SimpleAPIClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq DeleteSessionReq
 	var metadata runtime.ServerMetadata
 
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SimpleAPI_DeleteSession_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -104,11 +107,10 @@ func local_request_SimpleAPI_DeleteSession_0(ctx context.Context, marshaler runt
 	var protoReq DeleteSessionReq
 	var metadata runtime.ServerMetadata
 
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_SimpleAPI_DeleteSession_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -121,14 +123,6 @@ func request_SimpleAPI_GetProtos_0(ctx context.Context, marshaler runtime.Marsha
 	var protoReq GetProtosReq
 	var metadata runtime.ServerMetadata
 
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := client.GetProtos(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -137,14 +131,6 @@ func request_SimpleAPI_GetProtos_0(ctx context.Context, marshaler runtime.Marsha
 func local_request_SimpleAPI_GetProtos_0(ctx context.Context, marshaler runtime.Marshaler, server SimpleAPIServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetProtosReq
 	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 
 	msg, err := server.GetProtos(ctx, &protoReq)
 	return msg, metadata, err
@@ -163,7 +149,7 @@ func RegisterSimpleAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, 
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/simple.SimpleAPI/CreateSession", runtime.WithHTTPPathPattern("/simple.SimpleAPI/CreateSession"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/simple.SimpleAPI/CreateSession", runtime.WithHTTPPathPattern("/v1/session"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -186,7 +172,7 @@ func RegisterSimpleAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, 
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/simple.SimpleAPI/GetAllSessions", runtime.WithHTTPPathPattern("/v1/sessions"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/simple.SimpleAPI/GetAllSessions", runtime.WithHTTPPathPattern("/v1/session"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -203,13 +189,13 @@ func RegisterSimpleAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, 
 
 	})
 
-	mux.Handle("POST", pattern_SimpleAPI_DeleteSession_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_SimpleAPI_DeleteSession_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/simple.SimpleAPI/DeleteSession", runtime.WithHTTPPathPattern("/simple.SimpleAPI/DeleteSession"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/simple.SimpleAPI/DeleteSession", runtime.WithHTTPPathPattern("/v1/session"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -226,13 +212,13 @@ func RegisterSimpleAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, 
 
 	})
 
-	mux.Handle("POST", pattern_SimpleAPI_GetProtos_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_SimpleAPI_GetProtos_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/simple.SimpleAPI/GetProtos", runtime.WithHTTPPathPattern("/simple.SimpleAPI/GetProtos"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/simple.SimpleAPI/GetProtos", runtime.WithHTTPPathPattern("/v1/proto"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -294,7 +280,7 @@ func RegisterSimpleAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, 
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/simple.SimpleAPI/CreateSession", runtime.WithHTTPPathPattern("/simple.SimpleAPI/CreateSession"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/simple.SimpleAPI/CreateSession", runtime.WithHTTPPathPattern("/v1/session"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -314,7 +300,7 @@ func RegisterSimpleAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, 
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/simple.SimpleAPI/GetAllSessions", runtime.WithHTTPPathPattern("/v1/sessions"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/simple.SimpleAPI/GetAllSessions", runtime.WithHTTPPathPattern("/v1/session"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -330,11 +316,11 @@ func RegisterSimpleAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, 
 
 	})
 
-	mux.Handle("POST", pattern_SimpleAPI_DeleteSession_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_SimpleAPI_DeleteSession_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/simple.SimpleAPI/DeleteSession", runtime.WithHTTPPathPattern("/simple.SimpleAPI/DeleteSession"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/simple.SimpleAPI/DeleteSession", runtime.WithHTTPPathPattern("/v1/session"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -350,11 +336,11 @@ func RegisterSimpleAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, 
 
 	})
 
-	mux.Handle("POST", pattern_SimpleAPI_GetProtos_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_SimpleAPI_GetProtos_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/simple.SimpleAPI/GetProtos", runtime.WithHTTPPathPattern("/simple.SimpleAPI/GetProtos"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/simple.SimpleAPI/GetProtos", runtime.WithHTTPPathPattern("/v1/proto"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -374,13 +360,13 @@ func RegisterSimpleAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, 
 }
 
 var (
-	pattern_SimpleAPI_CreateSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"simple.SimpleAPI", "CreateSession"}, ""))
+	pattern_SimpleAPI_CreateSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "session"}, ""))
 
-	pattern_SimpleAPI_GetAllSessions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "sessions"}, ""))
+	pattern_SimpleAPI_GetAllSessions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "session"}, ""))
 
-	pattern_SimpleAPI_DeleteSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"simple.SimpleAPI", "DeleteSession"}, ""))
+	pattern_SimpleAPI_DeleteSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "session"}, ""))
 
-	pattern_SimpleAPI_GetProtos_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"simple.SimpleAPI", "GetProtos"}, ""))
+	pattern_SimpleAPI_GetProtos_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "proto"}, ""))
 )
 
 var (
