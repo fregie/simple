@@ -44,12 +44,12 @@ func NewManager(sqlitePath string) (*Manager, error) {
 	if err != nil {
 		return nil, err
 	}
-	for _, sess := range sessions {
-		m.sessIDMap.Store(sess.ID, sess)
+	for i, sess := range sessions {
+		m.sessIDMap.Store(sess.ID, &sessions[i])
 		if _, ok := m.protoMap[sess.Proto]; !ok {
 			m.protoMap[sess.Proto] = &sync.Map{}
 		}
-		m.protoMap[sess.Proto].Store(sess.Index, sess)
+		m.protoMap[sess.Proto].Store(sess.Index, &sessions[i])
 	}
 	return m, nil
 }

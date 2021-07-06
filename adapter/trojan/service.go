@@ -7,7 +7,9 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"math/rand"
 	"os"
+	"time"
 
 	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
 
@@ -24,6 +26,10 @@ type Service struct {
 	conf TrojanServerConfig
 	host string
 	svcpb.UnimplementedInterfaceServer
+}
+
+func init() {
+	rand.Seed(time.Now().Unix())
 }
 
 func NewService(configPath, addr string) (*Service, error) {

@@ -15,3 +15,4 @@
 # vendor/
 docker/trojan-go/data/*
 output
+*.db

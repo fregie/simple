@@ -1,13 +1,17 @@
 package main
 
 import (
+	"context"
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net"
+	"net/http"
 	"os"
 
 	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 
 	version "github.com/fregie/PrintVersion"
 	"github.com/fregie/simple/manager"
@@ -78,6 +82,24 @@ func main() {
 	grpcServer := grpc.NewServer()
 	pb.RegisterSimpleAPIServer(grpcServer, &SimpleAPI{})
 	reflection.Register(grpcServer)
+	if conf.GrpcGatewayAddr != "" {
+		_, port, _ := net.SplitHostPort(lis.Addr().String())
+		go runGateway(fmt.Sprintf("127.0.0.1:%s", port), conf.GrpcGatewayAddr)
+	}
 	Info.Printf("Listening grpc on %s", lis.Addr().String())
-	Error.Print(grpcServer.Serve(lis))
+	grpcServer.Serve(lis)
+}
+
+func runGateway(grpcServerEndpoint string, addr string) error {
+	// Register gRPC server endpoint
+	// Note: Make sure the gRPC server is running properly and accessible
+	mux := runtime.NewServeMux()
+	opts := []grpc.DialOption{grpc.WithInsecure()}
+	err := pb.RegisterSimpleAPIHandlerFromEndpoint(context.Background(), mux, grpcServerEndpoint, opts)
+	if err != nil {
+		return err
+	}
+	Info.Printf("Listening grpc gateway on %s (proxy to %s)", addr, grpcServerEndpoint)
+	// Start HTTP server (and proxy calls to gRPC server endpoint)
+	return http.ListenAndServe(addr, mux)
 }

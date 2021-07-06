@@ -7,9 +7,10 @@ import (
 )
 
 type Config struct {
-	Addr     string   `yaml:"grpc_addr"`
-	Sqlite   string   `yaml:"sqlite"`
-	Services []string `yaml:"services"`
+	Addr            string   `yaml:"grpc_addr"`
+	GrpcGatewayAddr string   `yaml:"grpc_gateway_addr"`
+	Sqlite          string   `yaml:"sqlite"`
+	Services        []string `yaml:"services"`
 }
 
 func parseConfigFromFile(path string) (*Config, error) {

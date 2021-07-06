@@ -17,4 +17,4 @@ plugins:
     out: proto/gen/doc
     strategy: all
     opt:
-      - html,api.html
+      - markdown,api.md

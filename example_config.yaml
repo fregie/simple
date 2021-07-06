@@ -1,4 +1,5 @@
 grpc_addr: "0.0.0.0:4433"
-sqlite: /opt/simple.db
+grpc_gateway_addr: "0.0.0.0:4444"
+sqlite: /root/simple/docker/simple/simple.db
 services:
   - "127.0.0.1:10001"
