@@ -3,6 +3,7 @@ module github.com/fregie/simple
 go 1.16
 
 require (
+	github.com/cad/ovpm v0.2.12
 	github.com/fregie/PrintVersion v0.1.0
 	github.com/fregie/gotool v0.1.8
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.5.0

@@ -64,3 +64,14 @@ func (c *TrojanClientConfig) ExportJson() []byte {
 	r, _ := json.Marshal(c)
 	return r
 }
+
+type CustomOption struct {
+	SslVerify      bool   `json:"ssl_verify"`
+	SslSni         string `json:"ssl_sni"`
+	EnableWS       bool   `json:"enable_websocket"`
+	WSPath         string `json:"websocket_path"`
+	WSHost         string `json:"websocket_host"`
+	EnableMux      bool   `json:"enable_mux"`
+	MuxConCurrency int    `json:"mux_concurrency"`
+	MuxIdleTimeout int    `json:"mux_idle_timeout"`
+}

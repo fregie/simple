@@ -41,7 +41,7 @@ services:
       - trojan
     ports: 
       - 4433:4433
-      - 4444:4444
+      - 4443:4443
     volumes:
       - ./config.yaml:/config.yaml
       - ./simple:/opt/simple
