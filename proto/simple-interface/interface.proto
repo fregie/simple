@@ -59,6 +59,7 @@ enum ConfigType {
   JSON = 0;
   YAML = 1;
   URL = 2;
+  TEXT = 3;
 }
 
 message Config {
