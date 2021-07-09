@@ -16,3 +16,4 @@
 docker/trojan-go/data/*
 output
 *.db
+spctl
