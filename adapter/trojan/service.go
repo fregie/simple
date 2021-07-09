@@ -94,11 +94,13 @@ func (s *Service) SetMetadata(_ context.Context, req *svcpb.SetMetadataReq) (rsp
 func (s *Service) Create(ctx context.Context, req *svcpb.CreateReq) (rsp *svcpb.CreateRsp, e error) {
 	rsp = &svcpb.CreateRsp{Code: svcpb.Code_OK}
 	var copt CustomOption
-	err := json.Unmarshal([]byte(req.CustomOption), &copt)
-	if err != nil {
-		rsp.Code = svcpb.Code_Fail
-		rsp.Msg = err.Error()
-		return
+	if req.CustomOption != "" {
+		err := json.Unmarshal([]byte(req.CustomOption), &copt)
+		if err != nil {
+			rsp.Code = svcpb.Code_Fail
+			rsp.Msg = err.Error()
+			return
+		}
 	}
 	c := &TrojanClientConfig{
 		RunType:    "client",
@@ -121,7 +123,7 @@ func (s *Service) Create(ctx context.Context, req *svcpb.CreateReq) (rsp *svcpb.
 		},
 	}
 
-	err = s.TrojanAddUser(ctx, c.Password[0], req.Opt)
+	err := s.TrojanAddUser(ctx, c.Password[0], req.Opt)
 	if err != nil {
 		rsp.Code = svcpb.Code_Fail
 		rsp.Msg = err.Error()

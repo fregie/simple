@@ -15,6 +15,7 @@ import (
 )
 
 type Manager struct {
+	host          string
 	sessIDMap     sync.Map
 	protoMap      map[string]*sync.Map
 	svcMap        map[string]svcpb.InterfaceClient
@@ -23,7 +24,7 @@ type Manager struct {
 	logger        *log.Logger
 }
 
-func NewManager(sqlitePath string) (*Manager, error) {
+func NewManager(sqlitePath, host string) (*Manager, error) {
 	db, err := gorm.Open(sqlite.Open(sqlitePath), &gorm.Config{})
 	if err != nil {
 		return nil, err
@@ -33,6 +34,7 @@ func NewManager(sqlitePath string) (*Manager, error) {
 		return nil, err
 	}
 	m := &Manager{
+		host:          host,
 		protoMap:      make(map[string]*sync.Map),
 		svcMap:        make(map[string]svcpb.InterfaceClient),
 		supportProtos: make([]string, 0),
@@ -77,6 +79,8 @@ func (m *Manager) RegisterService(svc svcpb.InterfaceClient) error {
 		go m.syncProtoSessions(svc, protoMap, time.Minute)
 	}
 
+	svc.SetMetadata(context.Background(), &svcpb.SetMetadataReq{Domain: m.host})
+
 	return nil
 }
 
@@ -94,7 +98,7 @@ func (m *Manager) getService(name string) svcpb.InterfaceClient {
 	return svc
 }
 
-func (m *Manager) CreateSession(ctx context.Context, proto string, configType svcpb.ConfigType, opt *svcpb.Option, customOpt string) ([]byte, error) {
+func (m *Manager) CreateSession(ctx context.Context, proto string, configType svcpb.ConfigType, opt *svcpb.Option, customOpt string) (*Session, error) {
 	svc := m.getService(proto)
 	if svc == nil {
 		return nil, errors.New("Unknown proto")
@@ -130,7 +134,7 @@ func (m *Manager) CreateSession(ctx context.Context, proto string, configType sv
 		m.logger.Printf("Create session to db failed: %s", err)
 	}
 
-	return rsp.Config.Config, nil
+	return sess, nil
 }
 
 func (m *Manager) DeleteSession(ctx context.Context, sessID string) error {

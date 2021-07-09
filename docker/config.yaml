@@ -1,5 +1,6 @@
 grpc_addr: "0.0.0.0:4433"
 grpc_gateway_addr: "0.0.0.0:4443"
+host: simple.fregie.cn
 sqlite: /opt/simple/simple.db
 services:
   - "adapter-trojan:10001"

@@ -47,6 +47,8 @@
     - [GetAllSessionsRsp](#simple.GetAllSessionsRsp)
     - [GetProtosReq](#simple.GetProtosReq)
     - [GetProtosRsp](#simple.GetProtosRsp)
+    - [GetSessionReq](#simple.GetSessionReq)
+    - [GetSessionRsp](#simple.GetSessionRsp)
     - [Session](#simple.Session)
   
     - [Code](#simple.Code)
@@ -576,6 +578,9 @@
 | ----- | ---- | ----- | ----------- |
 | Code | [Code](#simple.Code) |  |  |
 | Msg | [string](#string) |  |  |
+| ID | [string](#string) |  |  |
+| Proto | [string](#string) |  |  |
+| ConfigType | [interface.ConfigType](#interface.ConfigType) |  |  |
 | Config | [string](#string) |  |  |
 
 
@@ -668,6 +673,38 @@
 
 
 
+<a name="simple.GetSessionReq"></a>
+
+### GetSessionReq
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| ID | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="simple.GetSessionRsp"></a>
+
+### GetSessionRsp
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| Code | [Code](#simple.Code) |  |  |
+| Msg | [string](#string) |  |  |
+| Session | [Session](#simple.Session) |  |  |
+
+
+
+
+
+
 <a name="simple.Session"></a>
 
 ### Session
@@ -714,6 +751,7 @@
 | ----------- | ------------ | ------------- | ------------|
 | CreateSession | [CreateSessionReq](#simple.CreateSessionReq) | [CreateSessionRsp](#simple.CreateSessionRsp) |  |
 | GetAllSessions | [GetAllSessionsReq](#simple.GetAllSessionsReq) | [GetAllSessionsRsp](#simple.GetAllSessionsRsp) |  |
+| GetSession | [GetSessionReq](#simple.GetSessionReq) | [GetSessionRsp](#simple.GetSessionRsp) |  |
 | DeleteSession | [DeleteSessionReq](#simple.DeleteSessionReq) | [DeleteSessionRsp](#simple.DeleteSessionRsp) |  |
 | GetProtos | [GetProtosReq](#simple.GetProtosReq) | [GetProtosRsp](#simple.GetProtosRsp) |  |
 

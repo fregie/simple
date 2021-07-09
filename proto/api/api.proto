@@ -18,6 +18,11 @@ service SimpleAPI {
       get: "/v1/session"
     };
   };
+  rpc GetSession(GetSessionReq) returns(GetSessionRsp){
+    option (google.api.http) = {
+      get: "/v1/session/{ID}"
+    };
+  }
   rpc DeleteSession (DeleteSessionReq) returns (DeleteSessionRsp){
     option (google.api.http) = {
       delete: "/v1/session"
@@ -39,7 +44,10 @@ message CreateSessionReq {
 message CreateSessionRsp {
   Code Code = 1;
   string Msg = 2;
-  string Config = 3;
+  string ID = 3;
+  string Proto = 4;
+  interface.ConfigType ConfigType = 5;
+  string Config = 6;
 }
 
 message Session {
@@ -55,6 +63,15 @@ message GetAllSessionsRsp {
   Code Code = 1;
   string Msg = 2;
   repeated Session Sessions = 3;
+}
+
+message GetSessionReq {
+  string ID = 1;
+}
+message GetSessionRsp {
+  Code Code = 1;
+  string Msg = 2;
+  Session Session = 3;
 }
 
 message DeleteSessionReq {

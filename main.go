@@ -56,7 +56,7 @@ func main() {
 	if err != nil {
 		Error.Fatalf("Load config failed: %s", err)
 	}
-	sessManager, err = manager.NewManager(conf.Sqlite)
+	sessManager, err = manager.NewManager(conf.Sqlite, conf.Host)
 	if err != nil {
 		Error.Fatal(err)
 	}

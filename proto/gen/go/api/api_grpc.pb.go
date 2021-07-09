@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 type SimpleAPIClient interface {
 	CreateSession(ctx context.Context, in *CreateSessionReq, opts ...grpc.CallOption) (*CreateSessionRsp, error)
 	GetAllSessions(ctx context.Context, in *GetAllSessionsReq, opts ...grpc.CallOption) (*GetAllSessionsRsp, error)
+	GetSession(ctx context.Context, in *GetSessionReq, opts ...grpc.CallOption) (*GetSessionRsp, error)
 	DeleteSession(ctx context.Context, in *DeleteSessionReq, opts ...grpc.CallOption) (*DeleteSessionRsp, error)
 	GetProtos(ctx context.Context, in *GetProtosReq, opts ...grpc.CallOption) (*GetProtosRsp, error)
 }
@@ -50,6 +51,15 @@ func (c *simpleAPIClient) GetAllSessions(ctx context.Context, in *GetAllSessions
 	return out, nil
 }
 
+func (c *simpleAPIClient) GetSession(ctx context.Context, in *GetSessionReq, opts ...grpc.CallOption) (*GetSessionRsp, error) {
+	out := new(GetSessionRsp)
+	err := c.cc.Invoke(ctx, "/simple.SimpleAPI/GetSession", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *simpleAPIClient) DeleteSession(ctx context.Context, in *DeleteSessionReq, opts ...grpc.CallOption) (*DeleteSessionRsp, error) {
 	out := new(DeleteSessionRsp)
 	err := c.cc.Invoke(ctx, "/simple.SimpleAPI/DeleteSession", in, out, opts...)
@@ -74,6 +84,7 @@ func (c *simpleAPIClient) GetProtos(ctx context.Context, in *GetProtosReq, opts 
 type SimpleAPIServer interface {
 	CreateSession(context.Context, *CreateSessionReq) (*CreateSessionRsp, error)
 	GetAllSessions(context.Context, *GetAllSessionsReq) (*GetAllSessionsRsp, error)
+	GetSession(context.Context, *GetSessionReq) (*GetSessionRsp, error)
 	DeleteSession(context.Context, *DeleteSessionReq) (*DeleteSessionRsp, error)
 	GetProtos(context.Context, *GetProtosReq) (*GetProtosRsp, error)
 	mustEmbedUnimplementedSimpleAPIServer()
@@ -88,6 +99,9 @@ func (UnimplementedSimpleAPIServer) CreateSession(context.Context, *CreateSessio
 }
 func (UnimplementedSimpleAPIServer) GetAllSessions(context.Context, *GetAllSessionsReq) (*GetAllSessionsRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllSessions not implemented")
+}
+func (UnimplementedSimpleAPIServer) GetSession(context.Context, *GetSessionReq) (*GetSessionRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSession not implemented")
 }
 func (UnimplementedSimpleAPIServer) DeleteSession(context.Context, *DeleteSessionReq) (*DeleteSessionRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteSession not implemented")
@@ -144,6 +158,24 @@ func _SimpleAPI_GetAllSessions_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SimpleAPI_GetSession_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSessionReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimpleAPIServer).GetSession(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/simple.SimpleAPI/GetSession",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimpleAPIServer).GetSession(ctx, req.(*GetSessionReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SimpleAPI_DeleteSession_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteSessionReq)
 	if err := dec(in); err != nil {
@@ -194,6 +226,10 @@ var SimpleAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAllSessions",
 			Handler:    _SimpleAPI_GetAllSessions_Handler,
+		},
+		{
+			MethodName: "GetSession",
+			Handler:    _SimpleAPI_GetSession_Handler,
 		},
 		{
 			MethodName: "DeleteSession",
