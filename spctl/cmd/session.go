@@ -48,7 +48,6 @@ var createSessCmd = &cobra.Command{
 	Use:   "session",
 	Short: "Create a new sessoin",
 	Long:  `Create a new sessoin`,
-	Args:  cobra.MinimumNArgs(1),
 	Run:   createSession,
 }
 
@@ -56,6 +55,7 @@ var delSessCmd = &cobra.Command{
 	Use:   "session",
 	Short: "Delete specified session",
 	Long:  `Delete specified session`,
+	Args:  cobra.MinimumNArgs(1),
 	Run:   delSession,
 }
 
