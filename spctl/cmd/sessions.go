@@ -30,14 +30,9 @@ import (
 // sessionsCmd represents the sessions command
 var sessionsCmd = &cobra.Command{
 	Use:   "sessions",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	Run: showSessions,
+	Short: "Get all sessions",
+	Long:  `Get all sessions`,
+	Run:   showSessions,
 }
 
 func showSessions(cmd *cobra.Command, args []string) {

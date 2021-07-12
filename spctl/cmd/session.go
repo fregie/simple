@@ -29,49 +29,39 @@ import (
 	inf "github.com/fregie/simple/proto/gen/go/simple-interface"
 )
 
+var (
+	isShowConfig *bool
+	proto, ctype *string
+	limit        *uint64
+)
+
 // getSessCmd represents the session command
 var getSessCmd = &cobra.Command{
 	Use:   "session",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	Run: showSession,
+	Short: "Get specified session",
+	Long:  `Get specified session`,
+	Args:  cobra.MinimumNArgs(1),
+	Run:   showSession,
 }
 
 var createSessCmd = &cobra.Command{
 	Use:   "session",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	Run: createSession,
+	Short: "Create a new sessoin",
+	Long:  `Create a new sessoin`,
+	Args:  cobra.MinimumNArgs(1),
+	Run:   createSession,
 }
 
 var delSessCmd = &cobra.Command{
 	Use:   "session",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
-	Run: delSession,
+	Short: "Delete specified session",
+	Long:  `Delete specified session`,
+	Run:   delSession,
 }
 
 func showSession(cmd *cobra.Command, args []string) {
-	if len(args) == 0 {
-		pterm.Error.Printf("Need provide session ID")
-		return
-	}
 	id := args[0]
+
 	rsp, err := srv.GetSession(cmd.Context(), &api.GetSessionReq{ID: id})
 	checkErr(err)
 	checkRsp(rsp.Code, rsp.Msg)
@@ -82,14 +72,12 @@ func showSession(cmd *cobra.Command, args []string) {
 	pterm.Print("Option:\n")
 	pterm.Printf("    Upload rate limit:   %d mbps\n", sess.Opt.SendRateLimit)
 	pterm.Printf("    Download rate limit: %d mbps\n", sess.Opt.RecvRateLimit)
+	if *isShowConfig {
+		pterm.Printf("Config:\n%s", sess.Config)
+	}
 }
 
 func createSession(cmd *cobra.Command, args []string) {
-	var proto, ctype *string
-	var limit *uint64
-	proto = cmd.Flags().String("proto", "trojan", "proto")
-	ctype = cmd.Flags().String("type", "json", "config type")
-	limit = cmd.Flags().Uint64("limit", 0, "speed limit")
 	rsp, err := srv.CreateSession(cmd.Context(), &api.CreateSessionReq{
 		Proto:      *proto,
 		ConfigType: parseConfigType(*ctype),
@@ -108,10 +96,6 @@ func createSession(cmd *cobra.Command, args []string) {
 }
 
 func delSession(cmd *cobra.Command, args []string) {
-	if len(args) == 0 {
-		pterm.Error.Printf("Need provide session ID")
-		return
-	}
 	id := args[0]
 	rsp, err := srv.DeleteSession(cmd.Context(), &api.DeleteSessionReq{ID: id})
 	checkErr(err)
@@ -133,7 +117,12 @@ func parseConfigType(t string) inf.ConfigType {
 }
 
 func init() {
+	isShowConfig = getSessCmd.Flags().Bool("conf", false, "show the detail of config")
 	getCmd.AddCommand(getSessCmd)
+
+	proto = createSessCmd.Flags().String("proto", "trojan", "proto")
+	ctype = createSessCmd.Flags().String("type", "json", "config type")
+	limit = createSessCmd.Flags().Uint64("limit", 0, "speed limit")
 	createCmd.AddCommand(createSessCmd)
 	deleteCmd.AddCommand(delSessCmd)
 
