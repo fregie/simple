@@ -9,6 +9,7 @@
       "password1"
   ],
   "ssl": {
+      "verify_hostname": false,
       "cert": "/etc/ssl/certs/simple.fregie.cn.crt",
       "key": "/etc/ssl/certs/simple.fregie.cn.key"
   },

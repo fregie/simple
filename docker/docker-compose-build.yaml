@@ -5,7 +5,7 @@ services:
     image: fregie/trojan-go:latest
     ports: 
       - 2443:2443
-      - 2522:2522
+      - 2552:2552
     volumes:
       - ./trojan-go/server.json:/etc/trojan-go/config.json
       - ./trojan-go/simple.fregie.cn.crt:/etc/ssl/certs/simple.fregie.cn.crt

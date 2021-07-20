@@ -1,87 +1,61 @@
-Certificate:
-    Data:
-        Version: 3 (0x2)
-        Serial Number:
-            b9:8e:58:a0:93:5a:8d:24:b6:bb:cb:f9:e3:01:e9:de
-        Signature Algorithm: sha256WithRSAEncryption
-        Issuer: CN=fregie
-        Validity
-            Not Before: Aug  8 09:19:46 2019 GMT
-            Not After : Jul 23 09:19:46 2022 GMT
-        Subject: CN=nas.fregie.cn
-        Subject Public Key Info:
-            Public Key Algorithm: rsaEncryption
-                RSA Public-Key: (2048 bit)
-                Modulus:
-                    00:bf:e5:17:74:6d:3a:1b:e2:ff:40:73:ab:97:23:
-                    73:32:e0:21:e4:d7:a5:49:11:26:a1:b1:60:25:cc:
-                    f5:88:e8:a1:a5:10:28:6e:46:c5:58:cd:a6:ff:30:
-                    70:0f:36:76:0a:a3:cf:45:d5:b1:68:46:ba:d4:21:
-                    38:3c:bd:3c:cf:2e:d6:97:2c:db:dc:88:30:01:d1:
-                    ce:28:3c:d5:c6:e1:1d:d2:f6:b4:28:82:c2:af:21:
-                    6c:43:01:9d:54:9d:eb:59:80:88:80:65:93:30:4f:
-                    af:15:59:14:9b:87:b0:ce:bc:82:fe:30:2a:3f:15:
-                    f6:71:9a:67:b5:2e:e1:20:bf:37:b2:37:cd:03:89:
-                    96:49:b1:f5:9d:dd:81:bb:ca:d8:75:6a:01:cb:18:
-                    cb:1f:5b:5d:88:07:c0:ee:84:c4:0a:18:8a:73:6d:
-                    9c:01:4a:4b:2e:70:fb:5c:b0:4b:4c:37:d4:a8:76:
-                    d1:da:4a:77:19:12:d4:62:49:57:23:f2:41:68:81:
-                    ba:b0:dc:d7:21:13:4a:58:67:76:16:9e:a7:3f:8e:
-                    d7:fc:d8:2b:76:be:fc:32:6d:97:cf:da:ae:db:ee:
-                    5c:a9:c7:4d:e9:b3:a4:30:62:bc:b8:25:f2:61:6f:
-                    6b:bb:6f:05:0d:1c:d7:08:93:90:67:ff:9f:2a:0a:
-                    cc:47
-                Exponent: 65537 (0x10001)
-        X509v3 extensions:
-            X509v3 Basic Constraints: 
-                CA:FALSE
-            X509v3 Subject Key Identifier: 
-                BF:98:00:03:CC:73:0C:07:24:E9:B7:17:82:C1:6C:A8:46:3D:BA:F8
-            X509v3 Authority Key Identifier: 
-                keyid:C9:25:D3:89:F3:D4:5D:DA:EF:A9:95:2D:A2:91:64:DD:D4:90:1C:BB
-                DirName:/CN=fregie
-                serial:44:83:2B:5C:4C:4E:50:24:25:2E:1F:DA:18:72:1C:9B:A1:3F:A4:5C
-
-            X509v3 Extended Key Usage: 
-                TLS Web Server Authentication
-            X509v3 Key Usage: 
-                Digital Signature, Key Encipherment
-            X509v3 Subject Alternative Name: 
-                DNS:nas.fregie.cn
-    Signature Algorithm: sha256WithRSAEncryption
-         6e:5d:a6:e9:9e:9d:68:06:ba:27:78:79:84:fe:20:19:5b:61:
-         87:b0:c9:a5:ed:4b:c3:08:c9:d8:90:5a:66:a6:e7:7e:31:18:
-         f4:d0:9e:67:c8:51:bc:a3:6d:1b:fd:70:d4:2f:6c:ff:84:f7:
-         a4:c9:3d:0a:1d:23:8a:eb:6e:ae:e4:ba:2b:35:cb:d8:17:2b:
-         ad:f9:8a:7d:31:0a:65:c0:93:85:f2:1e:04:61:20:5e:3e:41:
-         76:8c:d7:58:78:3f:15:8f:b4:9f:f9:a6:bb:5c:e7:49:ee:47:
-         6b:27:d8:e7:0f:6f:bc:5f:63:45:c6:af:e0:26:45:5b:3c:5d:
-         b7:59:ce:fc:00:75:b9:3a:c0:4c:5c:c1:1d:74:e2:b7:78:a0:
-         df:e5:db:b4:69:c2:48:b7:82:10:dd:39:ae:32:d3:a0:52:9d:
-         de:e8:e3:8b:04:e2:9d:da:eb:d8:50:9c:1d:c2:8e:35:03:b2:
-         46:3e:fc:8b:32:6e:fc:87:63:7d:58:4c:44:48:95:ca:1a:a3:
-         8b:16:30:ae:f5:f2:40:1b:be:a7:ff:56:0f:21:9c:6a:4b:76:
-         86:f9:e4:de:25:a9:85:d7:40:5f:28:22:ac:60:3b:b2:45:a0:
-         ba:3f:8d:51:65:26:a7:e6:20:70:6b:b0:68:9a:ec:05:1c:b1:
-         e5:15:c1:e6
 -----BEGIN CERTIFICATE-----
-MIIDbDCCAlSgAwIBAgIRALmOWKCTWo0ktrvL+eMB6d4wDQYJKoZIhvcNAQELBQAw
-ETEPMA0GA1UEAwwGZnJlZ2llMB4XDTE5MDgwODA5MTk0NloXDTIyMDcyMzA5MTk0
-NlowGDEWMBQGA1UEAwwNbmFzLmZyZWdpZS5jbjCCASIwDQYJKoZIhvcNAQEBBQAD
-ggEPADCCAQoCggEBAL/lF3RtOhvi/0Bzq5cjczLgIeTXpUkRJqGxYCXM9YjooaUQ
-KG5GxVjNpv8wcA82dgqjz0XVsWhGutQhODy9PM8u1pcs29yIMAHRzig81cbhHdL2
-tCiCwq8hbEMBnVSd61mAiIBlkzBPrxVZFJuHsM68gv4wKj8V9nGaZ7Uu4SC/N7I3
-zQOJlkmx9Z3dgbvK2HVqAcsYyx9bXYgHwO6ExAoYinNtnAFKSy5w+1ywS0w31Kh2
-0dpKdxkS1GJJVyPyQWiBurDc1yETSlhndhaepz+O1/zYK3a+/DJtl8/artvuXKnH
-TemzpDBivLgl8mFva7tvBQ0c1wiTkGf/nyoKzEcCAwEAAaOBtzCBtDAJBgNVHRME
-AjAAMB0GA1UdDgQWBBS/mAADzHMMByTptxeCwWyoRj26+DBMBgNVHSMERTBDgBTJ
-JdOJ89Rd2u+plS2ikWTd1JAcu6EVpBMwETEPMA0GA1UEAwwGZnJlZ2llghREgytc
-TE5QJCUuH9oYchyboT+kXDATBgNVHSUEDDAKBggrBgEFBQcDATALBgNVHQ8EBAMC
-BaAwGAYDVR0RBBEwD4INbmFzLmZyZWdpZS5jbjANBgkqhkiG9w0BAQsFAAOCAQEA
-bl2m6Z6daAa6J3h5hP4gGVthh7DJpe1LwwjJ2JBaZqbnfjEY9NCeZ8hRvKNtG/1w
-1C9s/4T3pMk9Ch0jiuturuS6KzXL2BcrrfmKfTEKZcCThfIeBGEgXj5BdozXWHg/
-FY+0n/mmu1znSe5HayfY5w9vvF9jRcav4CZFWzxdt1nO/AB1uTrATFzBHXTit3ig
-3+XbtGnCSLeCEN05rjLToFKd3ujjiwTindrr2FCcHcKONQOyRj78izJu/IdjfVhM
-REiVyhqjixYwrvXyQBu+p/9WDyGcakt2hvnk3iWphddAXygirGA7skWguj+NUWUm
-p+YgcGuwaJrsBRyx5RXB5g==
+MIIF9TCCBN2gAwIBAgIQCfN0dyHAfybiQEyZStuQZDANBgkqhkiG9w0BAQsFADBu
+MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
+d3cuZGlnaWNlcnQuY29tMS0wKwYDVQQDEyRFbmNyeXB0aW9uIEV2ZXJ5d2hlcmUg
+RFYgVExTIENBIC0gRzEwHhcNMjEwNzE5MDAwMDAwWhcNMjIwNzE5MjM1OTU5WjAb
+MRkwFwYDVQQDExBzaW1wbGUuZnJlZ2llLmNuMIIBIjANBgkqhkiG9w0BAQEFAAOC
+AQ8AMIIBCgKCAQEAve2iyautJfHqLjXndjtBy9Vk33+hnlWi85Ay6qBJwyB//ycz
+wn/si/zW74pPPoc9c6Blt7ShGA0bTv478IoX6FEDtIq2sKwciQkYmWyRddcBR7Rz
+MLKphbBpDkpZBSSmYULlPiBJA9stOowkeSn68uUVdggc3RkRVc5/YcS4L6oCuHSw
+i9r2+LechJGcGgMzHomixBF7bJRZic4S1G26n4TaMLxtoIQjadD4B7GxGGIlyQ+D
+xd09+zL1TO+6ip3gL5UZgh75dtd36JUnM6MCcSUE+kmf3I88c+JC6IQ/eVhRrtPU
+oEQsog3tx/bogNYbINJgLYJbEBEd0HiqnZWSfQIDAQABo4IC4DCCAtwwHwYDVR0j
+BBgwFoAUVXRPsnJP9WC6UNHX5lFcmgGHGtcwHQYDVR0OBBYEFF6frNhg/ir/yzEl
+q+Kb1M/KBCnyMBsGA1UdEQQUMBKCEHNpbXBsZS5mcmVnaWUuY24wDgYDVR0PAQH/
+BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjA+BgNVHSAENzA1
+MDMGBmeBDAECATApMCcGCCsGAQUFBwIBFhtodHRwOi8vd3d3LmRpZ2ljZXJ0LmNv
+bS9DUFMwgYAGCCsGAQUFBwEBBHQwcjAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Au
+ZGlnaWNlcnQuY29tMEoGCCsGAQUFBzAChj5odHRwOi8vY2FjZXJ0cy5kaWdpY2Vy
+dC5jb20vRW5jcnlwdGlvbkV2ZXJ5d2hlcmVEVlRMU0NBLUcxLmNydDAJBgNVHRME
+AjAAMIIBfgYKKwYBBAHWeQIEAgSCAW4EggFqAWgAdwApeb7wnjk5IfBWc59jpXfl
+vld9nGAK+PlNXSZcJV3HhAAAAXq/LXQEAAAEAwBIMEYCIQD3xDHqzUwxphIYRSuY
++IS3LPrapmgB7DNOXxJ2TCA2TQIhAMaFTW7Lm2gO1Q9W0Gtd4KwKa4Lrle/qg+Ar
+x6LESexSAHUAUaOw9f0BeZxWbbg3eI8MpHrMGyfL956IQpoN/tSLBeUAAAF6vy10
+TwAABAMARjBEAiB/xxLJ85f8O3WjElwjSThYhE/G/v6zGDerHfk1sLScLQIgWnZN
+hhcDQXqsZ+ws68NpfylWfG3JImN/hTrQ4QMe0d0AdgBByMqx3yJGShDGoToJQode
+TjGLGwPr60vHaPCQYpYG9gAAAXq/LXP6AAAEAwBHMEUCIQCPJM0zBwqdiofJxMeT
+OYTlhyQdMeNx+EVe58qjBTX9fAIgYATsUUJTowgYU14QiWyxqA5r/d9yy0NAUz87
+VzkPAQswDQYJKoZIhvcNAQELBQADggEBAAKWl43GOR3yjSdMf/P3ST77E37Hg3d2
+IwXeDZ+owPEhy1XtqQnCfCkmzdfnpf7bYxD1yrcxM/9TVVlrduqpizDVDxqD9MkE
+ruJqYFDnFsGZQFYX/pXkZVRjJESMhIjon5SNFduc4KI1TiE2l3e6opu502gRFGEF
+Bxu47mlLos79fNbcyKxRvQM4A1ji+f4YTTYawDkLGXKE0nRv0FDM7x7BvwT0S5Xr
+ac+s4BA7aYzWZhOTEIqVUj9X1IPyIWUCXeoquccFsO1btIWDO7EIqERHFEMwMtpV
+D+uBlw9kiXipvnSr+dgPdcWHhSR7oSwggVReMyYPz49JzTllFkqYRT8=
+-----END CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
+MIIEqjCCA5KgAwIBAgIQAnmsRYvBskWr+YBTzSybsTANBgkqhkiG9w0BAQsFADBh
+MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
+d3cuZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBD
+QTAeFw0xNzExMjcxMjQ2MTBaFw0yNzExMjcxMjQ2MTBaMG4xCzAJBgNVBAYTAlVT
+MRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5j
+b20xLTArBgNVBAMTJEVuY3J5cHRpb24gRXZlcnl3aGVyZSBEViBUTFMgQ0EgLSBH
+MTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALPeP6wkab41dyQh6mKc
+oHqt3jRIxW5MDvf9QyiOR7VfFwK656es0UFiIb74N9pRntzF1UgYzDGu3ppZVMdo
+lbxhm6dWS9OK/lFehKNT0OYI9aqk6F+U7cA6jxSC+iDBPXwdF4rs3KRyp3aQn6pj
+pp1yr7IB6Y4zv72Ee/PlZ/6rK6InC6WpK0nPVOYR7n9iDuPe1E4IxUMBH/T33+3h
+yuH3dvfgiWUOUkjdpMbyxX+XNle5uEIiyBsi4IvbcTCh8ruifCIi5mDXkZrnMT8n
+wfYCV6v6kDdXkbgGRLKsR4pucbJtbKqIkUGxuZI2t7pfewKRc5nWecvDBZf3+p1M
+pA8CAwEAAaOCAU8wggFLMB0GA1UdDgQWBBRVdE+yck/1YLpQ0dfmUVyaAYca1zAf
+BgNVHSMEGDAWgBQD3lA1VtFMu2bwo+IbG8OXsj3RVTAOBgNVHQ8BAf8EBAMCAYYw
+HQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMBIGA1UdEwEB/wQIMAYBAf8C
+AQAwNAYIKwYBBQUHAQEEKDAmMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdp
+Y2VydC5jb20wQgYDVR0fBDswOTA3oDWgM4YxaHR0cDovL2NybDMuZGlnaWNlcnQu
+Y29tL0RpZ2lDZXJ0R2xvYmFsUm9vdENBLmNybDBMBgNVHSAERTBDMDcGCWCGSAGG
+/WwBAjAqMCgGCCsGAQUFBwIBFhxodHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BT
+MAgGBmeBDAECATANBgkqhkiG9w0BAQsFAAOCAQEAK3Gp6/aGq7aBZsxf/oQ+TD/B
+SwW3AU4ETK+GQf2kFzYZkby5SFrHdPomunx2HBzViUchGoofGgg7gHW0W3MlQAXW
+M0r5LUvStcr82QDWYNPaUy4taCQmyaJ+VB+6wxHstSigOlSNF2a6vg4rgexixeiV
+4YSB03Yqp2t3TeZHM9ESfkus74nQyW7pRGezj+TC44xCagCQQOzzNmzEAP2SnCrJ
+sNE2DpRVMnL8J6xBRdjmOsC3N6cQuKuRXbzByVBjCqAA8t1L0I+9wXJerLPyErjy
+rMKWaBFLmfK/AHNF4ZihwPGOc7w6UHczBZXH5RFzJNnww+WnKuTPI0HfnVH8lg==
 -----END CERTIFICATE-----
