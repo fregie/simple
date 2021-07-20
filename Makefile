@@ -14,7 +14,7 @@ protobuf:
 	buf generate
 
 doc:
-	buf generate --path proto/api
+	buf generate
 
 adapter-trojan:
 	go build -o output/adapter-trojan ./adapter/trojan
