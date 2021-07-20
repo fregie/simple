@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/p4gefau1t/trojan-go/common"
 )
@@ -63,6 +64,16 @@ func (c *TrojanClientConfig) hash() string {
 func (c *TrojanClientConfig) ExportJson() []byte {
 	r, _ := json.Marshal(c)
 	return r
+}
+
+func (c *TrojanClientConfig) ExportURL() string {
+	var pwd string
+	if len(c.Password) > 0 {
+		pwd = c.Password[0]
+	}
+	url := fmt.Sprintf("trojan-go://%s@%s:%d", pwd, c.RemoteAddr, c.RemotePort)
+
+	return url
 }
 
 type CustomOption struct {

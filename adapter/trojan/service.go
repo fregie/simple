@@ -135,7 +135,17 @@ func (s *Service) Create(ctx context.Context, req *svcpb.CreateReq) (rsp *svcpb.
 		ConfigType: svcpb.ConfigType_JSON,
 		Config:     c.ExportJson(),
 	}
-
+	switch req.ConfigType {
+	case svcpb.ConfigType_JSON:
+		rsp.Config.ConfigType = svcpb.ConfigType_JSON
+		rsp.Config.Config = c.ExportJson()
+	case svcpb.ConfigType_URL:
+		rsp.Config.ConfigType = svcpb.ConfigType_URL
+		rsp.Config.Config = []byte(c.ExportURL())
+	default:
+		rsp.Code = svcpb.Code_Fail
+		rsp.Msg = "unknown config type"
+	}
 	return
 }
 

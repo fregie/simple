@@ -34,6 +34,11 @@ func (s *Service) IsSupportPersistence(_ context.Context, _ *svcpb.IsSupportPers
 	return &svcpb.IsSupportPersistenceRsp{IsSupport: true}, nil
 }
 
+func (s *Service) CustomOptionSchema(_ context.Context, _ *svcpb.CustomOptionSchemaReq) (*svcpb.CustomOptionSchemaRsp, error) {
+	rsp := &svcpb.CustomOptionSchemaRsp{}
+	return rsp, nil
+}
+
 func (s *Service) Create(ctx context.Context, req *svcpb.CreateReq) (rsp *svcpb.CreateRsp, e error) {
 	rsp = &svcpb.CreateRsp{Code: svcpb.Code_OK}
 	c := &OvpnClientConfig{
@@ -93,6 +98,22 @@ func (s *Service) Delete(ctx context.Context, req *svcpb.DeleteReq) (rsp *svcpb.
 		rsp.Code = svcpb.Code_Fail
 		rsp.Msg = err.Error()
 		return
+	}
+	return
+}
+
+func (s *Service) GetAll(ctx context.Context, req *svcpb.GetAllReq) (rsp *svcpb.GetAllRsp, e error) {
+	rsp = &svcpb.GetAllRsp{Code: svcpb.Code_OK}
+	users, err := s.srv.List(ctx, &pb.UserListRequest{})
+	if err != nil {
+		return nil, err
+	}
+	rsp.All = make(map[string]*svcpb.Config)
+	for _, u := range users.Users {
+		rsp.All[u.Username] = &svcpb.Config{
+			Name:       Name,
+			ConfigType: svcpb.ConfigType_TEXT,
+		}
 	}
 	return
 }

@@ -18,6 +18,7 @@ import (
 	pb "github.com/fregie/simple/proto/gen/go/api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 var (
@@ -93,7 +94,12 @@ func main() {
 func runGateway(grpcServerEndpoint string, addr string) error {
 	// Register gRPC server endpoint
 	// Note: Make sure the gRPC server is running properly and accessible
-	mux := runtime.NewServeMux()
+	mux := runtime.NewServeMux(runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{
+		MarshalOptions: protojson.MarshalOptions{
+			UseEnumNumbers:  true,
+			EmitUnpopulated: true,
+		},
+	}))
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 	err := pb.RegisterSimpleAPIHandlerFromEndpoint(context.Background(), mux, grpcServerEndpoint, opts)
 	if err != nil {

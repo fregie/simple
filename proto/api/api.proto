@@ -25,7 +25,7 @@ service SimpleAPI {
   }
   rpc DeleteSession (DeleteSessionReq) returns (DeleteSessionRsp){
     option (google.api.http) = {
-      delete: "/v1/session"
+      delete: "/v1/session/{ID}"
     };
   };
   rpc GetProtos (GetProtosReq) returns (GetProtosRsp){
