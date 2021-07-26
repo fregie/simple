@@ -14,6 +14,7 @@ const (
 
 type Session struct {
 	ID            string `gorm:"primary_key"`
+	Name          string
 	Proto         string
 	Index         string
 	ConfigType    int32

@@ -346,11 +346,27 @@
                 </li>
               
                 <li>
+                  <a href="#simple.GetSchemaReq"><span class="badge">M</span>GetSchemaReq</a>
+                </li>
+              
+                <li>
+                  <a href="#simple.GetSchemaRsp"><span class="badge">M</span>GetSchemaRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#simple.GetSchemaRsp.SchemasEntry"><span class="badge">M</span>GetSchemaRsp.SchemasEntry</a>
+                </li>
+              
+                <li>
                   <a href="#simple.GetSessionReq"><span class="badge">M</span>GetSessionReq</a>
                 </li>
               
                 <li>
                   <a href="#simple.GetSessionRsp"><span class="badge">M</span>GetSessionRsp</a>
+                </li>
+              
+                <li>
+                  <a href="#simple.Schema"><span class="badge">M</span>Schema</a>
                 </li>
               
                 <li>
@@ -1369,7 +1385,14 @@
                 </tr>
               
                 <tr>
-                  <td>customOpt</td>
+                  <td>CustomOpt</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Name</td>
                   <td><a href="#string">string</a></td>
                   <td></td>
                   <td><p> </p></td>
@@ -1586,6 +1609,82 @@
 
         
       
+        <h3 id="simple.GetSchemaReq">GetSchemaReq</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id="simple.GetSchemaRsp">GetSchemaRsp</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Code</td>
+                  <td><a href="#simple.Code">Code</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Msg</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Schemas</td>
+                  <td><a href="#simple.GetSchemaRsp.SchemasEntry">GetSchemaRsp.SchemasEntry</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id="simple.GetSchemaRsp.SchemasEntry">GetSchemaRsp.SchemasEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#simple.Schema">Schema</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id="simple.GetSessionReq">GetSessionReq</h3>
         <p></p>
 
@@ -1648,6 +1747,37 @@
 
         
       
+        <h3 id="simple.Schema">Schema</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Proto</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Fields</td>
+                  <td><a href="#interface.Field">interface.Field</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
         <h3 id="simple.Session">Session</h3>
         <p></p>
 
@@ -1689,6 +1819,13 @@
                 <tr>
                   <td>Opt</td>
                   <td><a href="#interface.Option">interface.Option</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Name</td>
+                  <td><a href="#string">string</a></td>
                   <td></td>
                   <td><p> </p></td>
                 </tr>
@@ -1772,6 +1909,13 @@
                 <td><p></p></td>
               </tr>
             
+              <tr>
+                <td>GetSchema</td>
+                <td><a href="#simple.GetSchemaReq">GetSchemaReq</a></td>
+                <td><a href="#simple.GetSchemaRsp">GetSchemaRsp</a></td>
+                <td><p></p></td>
+              </tr>
+            
           </tbody>
         </table>
 
@@ -1836,6 +1980,16 @@
                 <td>GetProtos</td>
                 <td>GET</td>
                 <td>/v1/proto</td>
+                <td></td>
+              </tr>
+              
+            
+              
+              
+              <tr>
+                <td>GetSchema</td>
+                <td>GET</td>
+                <td>/v1/schema</td>
                 <td></td>
               </tr>
               

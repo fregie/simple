@@ -23,6 +23,7 @@ type SimpleAPIClient interface {
 	GetSession(ctx context.Context, in *GetSessionReq, opts ...grpc.CallOption) (*GetSessionRsp, error)
 	DeleteSession(ctx context.Context, in *DeleteSessionReq, opts ...grpc.CallOption) (*DeleteSessionRsp, error)
 	GetProtos(ctx context.Context, in *GetProtosReq, opts ...grpc.CallOption) (*GetProtosRsp, error)
+	GetSchema(ctx context.Context, in *GetSchemaReq, opts ...grpc.CallOption) (*GetSchemaRsp, error)
 }
 
 type simpleAPIClient struct {
@@ -78,6 +79,15 @@ func (c *simpleAPIClient) GetProtos(ctx context.Context, in *GetProtosReq, opts 
 	return out, nil
 }
 
+func (c *simpleAPIClient) GetSchema(ctx context.Context, in *GetSchemaReq, opts ...grpc.CallOption) (*GetSchemaRsp, error) {
+	out := new(GetSchemaRsp)
+	err := c.cc.Invoke(ctx, "/simple.SimpleAPI/GetSchema", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SimpleAPIServer is the server API for SimpleAPI service.
 // All implementations must embed UnimplementedSimpleAPIServer
 // for forward compatibility
@@ -87,6 +97,7 @@ type SimpleAPIServer interface {
 	GetSession(context.Context, *GetSessionReq) (*GetSessionRsp, error)
 	DeleteSession(context.Context, *DeleteSessionReq) (*DeleteSessionRsp, error)
 	GetProtos(context.Context, *GetProtosReq) (*GetProtosRsp, error)
+	GetSchema(context.Context, *GetSchemaReq) (*GetSchemaRsp, error)
 	mustEmbedUnimplementedSimpleAPIServer()
 }
 
@@ -108,6 +119,9 @@ func (UnimplementedSimpleAPIServer) DeleteSession(context.Context, *DeleteSessio
 }
 func (UnimplementedSimpleAPIServer) GetProtos(context.Context, *GetProtosReq) (*GetProtosRsp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProtos not implemented")
+}
+func (UnimplementedSimpleAPIServer) GetSchema(context.Context, *GetSchemaReq) (*GetSchemaRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSchema not implemented")
 }
 func (UnimplementedSimpleAPIServer) mustEmbedUnimplementedSimpleAPIServer() {}
 
@@ -212,6 +226,24 @@ func _SimpleAPI_GetProtos_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SimpleAPI_GetSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSchemaReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimpleAPIServer).GetSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/simple.SimpleAPI/GetSchema",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimpleAPIServer).GetSchema(ctx, req.(*GetSchemaReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SimpleAPI_ServiceDesc is the grpc.ServiceDesc for SimpleAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -238,6 +270,10 @@ var SimpleAPI_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProtos",
 			Handler:    _SimpleAPI_GetProtos_Handler,
+		},
+		{
+			MethodName: "GetSchema",
+			Handler:    _SimpleAPI_GetSchema_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

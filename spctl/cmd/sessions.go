@@ -40,9 +40,9 @@ func showSessions(cmd *cobra.Command, args []string) {
 	checkErr(err)
 	checkRsp(rsp.Code, rsp.Msg)
 	data := make([][]string, 0)
-	data = append(data, []string{"ID", "proto", "config type"})
+	data = append(data, []string{"Name", "ID", "proto", "config type"})
 	for _, sess := range rsp.Sessions {
-		data = append(data, []string{sess.ID, sess.Proto, sess.ConfigType.String()})
+		data = append(data, []string{sess.Name, sess.ID, sess.Proto, sess.ConfigType.String()})
 	}
 	pterm.DefaultTable.WithHasHeader().WithData(data).Render()
 }

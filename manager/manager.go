@@ -98,7 +98,7 @@ func (m *Manager) getService(name string) svcpb.InterfaceClient {
 	return svc
 }
 
-func (m *Manager) CreateSession(ctx context.Context, proto string, configType svcpb.ConfigType, opt *svcpb.Option, customOpt string) (*Session, error) {
+func (m *Manager) CreateSession(ctx context.Context, name, proto string, configType svcpb.ConfigType, opt *svcpb.Option, customOpt string) (*Session, error) {
 	svc := m.getService(proto)
 	if svc == nil {
 		return nil, errors.New("Unknown proto")
@@ -117,6 +117,7 @@ func (m *Manager) CreateSession(ctx context.Context, proto string, configType sv
 
 	sess := &Session{
 		ID:           genSessionID(proto, rsp.Index),
+		Name:         name,
 		Proto:        proto,
 		Index:        rsp.Index,
 		ConfigType:   int32(rsp.Config.ConfigType),
@@ -210,4 +211,16 @@ func (m *Manager) syncProtoSessions(svc svcpb.InterfaceClient, protoMap *sync.Ma
 		})
 		cancel()
 	}
+}
+
+func (m *Manager) GetSchemas(ctx context.Context) (map[string][]*svcpb.Field, error) {
+	schemas := make(map[string][]*svcpb.Field)
+	for proto, svc := range m.svcMap {
+		rsp, err := svc.CustomOptionSchema(ctx, &svcpb.CustomOptionSchemaReq{})
+		if err != nil {
+			continue
+		}
+		schemas[proto] = rsp.Fields
+	}
+	return schemas, nil
 }

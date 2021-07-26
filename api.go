@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 
+	"github.com/fregie/simple/manager"
 	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
 
 	proto "github.com/fregie/simple/proto/gen/go/api"
@@ -14,7 +15,7 @@ type SimpleAPI struct {
 
 func (s *SimpleAPI) CreateSession(ctx context.Context, req *proto.CreateSessionReq) (rsp *proto.CreateSessionRsp, e error) {
 	rsp = &proto.CreateSessionRsp{Code: proto.Code_OK}
-	sess, err := sessManager.CreateSession(ctx, req.Proto, req.ConfigType, req.Opt, req.CustomOpt)
+	sess, err := sessManager.CreateSession(ctx, req.Name, req.Proto, req.ConfigType, req.Opt, req.CustomOpt)
 	if err != nil {
 		rsp.Code = proto.Code_InternalError
 		rsp.Msg = err.Error()
@@ -32,16 +33,7 @@ func (s *SimpleAPI) GetAllSessions(ctx context.Context, req *proto.GetAllSession
 	sessions := sessManager.GetAllSession()
 	rsp.Sessions = make([]*proto.Session, 0)
 	for _, sess := range sessions {
-		s := &proto.Session{
-			ID:         sess.ID,
-			Proto:      sess.Proto,
-			ConfigType: svcpb.ConfigType(sess.ConfigType),
-			Config:     sess.Config,
-			Opt: &svcpb.Option{
-				SendRateLimit: sess.SendRateLimit,
-				RecvRateLimit: sess.RecvRateLimit,
-			},
-		}
+		s := convertSession(sess)
 		rsp.Sessions = append(rsp.Sessions, s)
 	}
 
@@ -56,16 +48,7 @@ func (s *SimpleAPI) GetSession(ctx context.Context, req *proto.GetSessionReq) (r
 		rsp.Msg = "session not found"
 		return
 	}
-	rsp.Session = &proto.Session{
-		ID:         sess.ID,
-		Proto:      sess.Proto,
-		ConfigType: svcpb.ConfigType(sess.ConfigType),
-		Config:     sess.Config,
-		Opt: &svcpb.Option{
-			SendRateLimit: sess.SendRateLimit,
-			RecvRateLimit: sess.RecvRateLimit,
-		},
-	}
+	rsp.Session = convertSession(sess)
 	return
 }
 
@@ -84,4 +67,25 @@ func (s *SimpleAPI) GetProtos(ctx context.Context, req *proto.GetProtosReq) (rsp
 	rsp = &proto.GetProtosRsp{Code: proto.Code_OK}
 	rsp.Protos = sessManager.GetProtos()
 	return
+}
+
+func (s *SimpleAPI) GetSchema(ctx context.Context, req *proto.GetSchemaReq) (rsp *proto.GetSchemaRsp, e error) {
+	rsp = &proto.GetSchemaRsp{Code: proto.Code_OK}
+	rsp.Schemas = make(map[string]*proto.Schema)
+
+	return
+}
+
+func convertSession(s *manager.Session) *proto.Session {
+	return &proto.Session{
+		ID:         s.ID,
+		Name:       s.Name,
+		Proto:      s.Proto,
+		ConfigType: svcpb.ConfigType(s.ConfigType),
+		Config:     s.Config,
+		Opt: &svcpb.Option{
+			SendRateLimit: s.SendRateLimit,
+			RecvRateLimit: s.RecvRateLimit,
+		},
+	}
 }

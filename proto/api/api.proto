@@ -33,13 +33,19 @@ service SimpleAPI {
       get: "/v1/proto"
     };
   };
+  rpc GetSchema (GetSchemaReq) returns (GetSchemaRsp){
+    option (google.api.http) = {
+      get: "/v1/schema"
+    };
+  };
 }
 
 message CreateSessionReq {
   string Proto = 1;
   interface.ConfigType ConfigType = 2;
   interface.Option Opt = 3;
-  string customOpt = 4;
+  string CustomOpt = 4;
+  string Name = 5;
 }
 message CreateSessionRsp {
   Code Code = 1;
@@ -56,6 +62,7 @@ message Session {
   interface.ConfigType ConfigType = 3;
   string Config = 4;
   interface.Option Opt = 5;
+  string Name = 6;
 }
 
 message GetAllSessionsReq {}
@@ -67,6 +74,7 @@ message GetAllSessionsRsp {
 
 message GetSessionReq {
   string ID = 1;
+  string Name = 2;
 }
 message GetSessionRsp {
   Code Code = 1;
@@ -87,6 +95,18 @@ message GetProtosRsp {
   Code Code = 1;
   string Msg = 2;
   repeated string Protos = 3;
+}
+
+message Schema {
+  string Proto = 1;
+  repeated interface.Field Fields = 2;
+}
+
+message GetSchemaReq {}
+message GetSchemaRsp {
+  Code Code = 1;
+  string Msg = 2;
+  map<string, Schema> Schemas = 3;
 }
 
 enum Code {
