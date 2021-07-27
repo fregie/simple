@@ -33,7 +33,7 @@ var (
 	isShowConfig *bool
 	proto, ctype *string
 	limit        *uint64
-	name         *string
+	createName   *string
 )
 
 // getSessCmd represents the session command
@@ -63,12 +63,13 @@ var delSessCmd = &cobra.Command{
 func showSession(cmd *cobra.Command, args []string) {
 	id := args[0]
 
-	rsp, err := srv.GetSession(cmd.Context(), &api.GetSessionReq{ID: id})
+	rsp, err := srv.GetSession(cmd.Context(), &api.GetSessionReq{IDorName: id})
 	checkErr(err)
 	checkRsp(rsp.Code, rsp.Msg)
 	sess := rsp.Session
 	pterm.FgLightCyan.Printf("ID:            %s\n", sess.ID)
-	pterm.Printf("Name:         %s\n", sess.Name)
+	pterm.Print("Name:          ")
+	pterm.FgGreen.Printf("%s\n", sess.Name)
 	pterm.Printf("Proto:         %s\n", sess.Proto)
 	pterm.Printf("Config type:   %s\n", sess.ConfigType)
 	pterm.Print("Option:\n")
@@ -81,7 +82,7 @@ func showSession(cmd *cobra.Command, args []string) {
 
 func createSession(cmd *cobra.Command, args []string) {
 	rsp, err := srv.CreateSession(cmd.Context(), &api.CreateSessionReq{
-		Name:       *name,
+		Name:       *createName,
 		Proto:      *proto,
 		ConfigType: parseConfigType(*ctype),
 		Opt: &inf.Option{
@@ -93,7 +94,7 @@ func createSession(cmd *cobra.Command, args []string) {
 	checkRsp(rsp.Code, rsp.Msg)
 	pterm.Success.Print("Create success!\n")
 	pterm.FgLightCyan.Printf("ID:            %s\n", rsp.ID)
-	pterm.Printf("Name:         %s\n", *name)
+	pterm.Printf("Name:         %s\n", *createName)
 	pterm.Printf("Proto:         %s\n", rsp.Proto)
 	pterm.Printf("Config type:   %s\n", rsp.ConfigType.String())
 	pterm.Printf("Config:\n%s\n", rsp.Config)
@@ -101,7 +102,7 @@ func createSession(cmd *cobra.Command, args []string) {
 
 func delSession(cmd *cobra.Command, args []string) {
 	id := args[0]
-	rsp, err := srv.DeleteSession(cmd.Context(), &api.DeleteSessionReq{ID: id})
+	rsp, err := srv.DeleteSession(cmd.Context(), &api.DeleteSessionReq{IDorName: id})
 	checkErr(err)
 	checkRsp(rsp.Code, rsp.Msg)
 	pterm.Success.Printf("Delete %s\n", id)
@@ -124,7 +125,7 @@ func init() {
 	isShowConfig = getSessCmd.Flags().Bool("conf", false, "show the detail of config")
 	getCmd.AddCommand(getSessCmd)
 
-	name = getSessCmd.Flags().String("name", "", "session name")
+	createName = createSessCmd.Flags().String("name", "", "session name")
 	proto = createSessCmd.Flags().String("proto", "trojan", "proto")
 	ctype = createSessCmd.Flags().String("type", "json", "config type")
 	limit = createSessCmd.Flags().Uint64("limit", 0, "speed limit")

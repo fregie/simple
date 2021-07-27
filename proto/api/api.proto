@@ -20,12 +20,12 @@ service SimpleAPI {
   };
   rpc GetSession(GetSessionReq) returns(GetSessionRsp){
     option (google.api.http) = {
-      get: "/v1/session/{ID}"
+      get: "/v1/session/{IDorName}"
     };
   }
   rpc DeleteSession (DeleteSessionReq) returns (DeleteSessionRsp){
     option (google.api.http) = {
-      delete: "/v1/session/{ID}"
+      delete: "/v1/session/{IDorName}"
     };
   };
   rpc GetProtos (GetProtosReq) returns (GetProtosRsp){
@@ -73,8 +73,7 @@ message GetAllSessionsRsp {
 }
 
 message GetSessionReq {
-  string ID = 1;
-  string Name = 2;
+  string IDorName = 1;
 }
 message GetSessionRsp {
   Code Code = 1;
@@ -83,7 +82,7 @@ message GetSessionRsp {
 }
 
 message DeleteSessionReq {
-  string ID = 1;
+  string IDorName = 1;
 }
 message DeleteSessionRsp {
   Code Code = 1;

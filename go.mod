@@ -8,6 +8,7 @@ require (
 	github.com/fregie/gotool v0.1.9
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.5.0
 	github.com/p4gefau1t/trojan-go v0.10.4
+	github.com/pseudomuto/protoc-gen-doc v1.4.1
 	github.com/pterm/pterm v0.12.27
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/viper v1.7.0

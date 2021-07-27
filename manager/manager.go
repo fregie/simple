@@ -17,6 +17,7 @@ import (
 type Manager struct {
 	host          string
 	sessIDMap     sync.Map
+	sessNameMap   sync.Map
 	protoMap      map[string]*sync.Map
 	svcMap        map[string]svcpb.InterfaceClient
 	supportProtos []string
@@ -48,6 +49,7 @@ func NewManager(sqlitePath, host string) (*Manager, error) {
 	}
 	for i, sess := range sessions {
 		m.sessIDMap.Store(sess.ID, &sessions[i])
+		m.sessNameMap.Store(sess.Name, &sessions[i])
 		if _, ok := m.protoMap[sess.Proto]; !ok {
 			m.protoMap[sess.Proto] = &sync.Map{}
 		}
@@ -129,6 +131,7 @@ func (m *Manager) CreateSession(ctx context.Context, name, proto string, configT
 		sess.RecvRateLimit = opt.RecvRateLimit
 	}
 	m.sessIDMap.Store(sess.ID, sess)
+	m.sessNameMap.Store(sess.Name, sess)
 	m.protoMap[sess.Proto].Store(sess.Index, sess)
 	err = m.db.Create(sess).Error
 	if err != nil {
@@ -138,12 +141,21 @@ func (m *Manager) CreateSession(ctx context.Context, name, proto string, configT
 	return sess, nil
 }
 
-func (m *Manager) DeleteSession(ctx context.Context, sessID string) error {
+func (m *Manager) DeleteSession(ctx context.Context, sessIDorName string) error {
+	var sessID string
+	v1, loaded := m.sessNameMap.Load(sessIDorName)
+	if loaded {
+		sess := v1.(*Session)
+		sessID = sess.ID
+	} else {
+		sessID = sessIDorName
+	}
 	v, loaded := m.sessIDMap.LoadAndDelete(sessID)
 	if !loaded {
 		return fmt.Errorf("session [%s] not found", sessID)
 	}
 	sess := v.(*Session)
+	m.sessNameMap.Delete(sess.Name)
 	m.protoMap[sess.Proto].Delete(sess.Index)
 	svc := m.getService(sess.Proto)
 	if svc == nil {
@@ -163,8 +175,25 @@ func (m *Manager) DeleteSession(ctx context.Context, sessID string) error {
 	return nil
 }
 
+func (m *Manager) DeleteSessionByName(ctx context.Context, name string) error {
+	v, loaded := m.sessNameMap.Load(name)
+	if !loaded {
+		return fmt.Errorf("session [%s] not found", name)
+	}
+	sess := v.(*Session)
+	return m.DeleteSession(ctx, sess.ID)
+}
+
 func (m *Manager) GetSession(sessID string) *Session {
 	v, loaded := m.sessIDMap.Load(sessID)
+	if !loaded {
+		return nil
+	}
+	return v.(*Session)
+}
+
+func (m *Manager) GetSessionByName(name string) *Session {
+	v, loaded := m.sessNameMap.Load(name)
 	if !loaded {
 		return nil
 	}

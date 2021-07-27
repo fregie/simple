@@ -21,3 +21,7 @@ adapter-trojan:
 
 simple:
 	go build -o output/simple
+
+.PHONY: spctl
+spctl:
+	go build -o output/spctl ./spctl

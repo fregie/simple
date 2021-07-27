@@ -94,14 +94,14 @@ func request_SimpleAPI_GetSession_0(ctx context.Context, marshaler runtime.Marsh
 		_   = err
 	)
 
-	val, ok = pathParams["ID"]
+	val, ok = pathParams["IDorName"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "ID")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "IDorName")
 	}
 
-	protoReq.ID, err = runtime.String(val)
+	protoReq.IDorName, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "ID", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "IDorName", err)
 	}
 
 	msg, err := client.GetSession(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -120,14 +120,14 @@ func local_request_SimpleAPI_GetSession_0(ctx context.Context, marshaler runtime
 		_   = err
 	)
 
-	val, ok = pathParams["ID"]
+	val, ok = pathParams["IDorName"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "ID")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "IDorName")
 	}
 
-	protoReq.ID, err = runtime.String(val)
+	protoReq.IDorName, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "ID", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "IDorName", err)
 	}
 
 	msg, err := server.GetSession(ctx, &protoReq)
@@ -146,14 +146,14 @@ func request_SimpleAPI_DeleteSession_0(ctx context.Context, marshaler runtime.Ma
 		_   = err
 	)
 
-	val, ok = pathParams["ID"]
+	val, ok = pathParams["IDorName"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "ID")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "IDorName")
 	}
 
-	protoReq.ID, err = runtime.String(val)
+	protoReq.IDorName, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "ID", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "IDorName", err)
 	}
 
 	msg, err := client.DeleteSession(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -172,14 +172,14 @@ func local_request_SimpleAPI_DeleteSession_0(ctx context.Context, marshaler runt
 		_   = err
 	)
 
-	val, ok = pathParams["ID"]
+	val, ok = pathParams["IDorName"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "ID")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "IDorName")
 	}
 
-	protoReq.ID, err = runtime.String(val)
+	protoReq.IDorName, err = runtime.String(val)
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "ID", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "IDorName", err)
 	}
 
 	msg, err := server.DeleteSession(ctx, &protoReq)
@@ -281,7 +281,7 @@ func RegisterSimpleAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, 
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/simple.SimpleAPI/GetSession", runtime.WithHTTPPathPattern("/v1/session/{ID}"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/simple.SimpleAPI/GetSession", runtime.WithHTTPPathPattern("/v1/session/{IDorName}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -304,7 +304,7 @@ func RegisterSimpleAPIHandlerServer(ctx context.Context, mux *runtime.ServeMux, 
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/simple.SimpleAPI/DeleteSession", runtime.WithHTTPPathPattern("/v1/session/{ID}"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/simple.SimpleAPI/DeleteSession", runtime.WithHTTPPathPattern("/v1/session/{IDorName}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -452,7 +452,7 @@ func RegisterSimpleAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, 
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/simple.SimpleAPI/GetSession", runtime.WithHTTPPathPattern("/v1/session/{ID}"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/simple.SimpleAPI/GetSession", runtime.WithHTTPPathPattern("/v1/session/{IDorName}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -472,7 +472,7 @@ func RegisterSimpleAPIHandlerClient(ctx context.Context, mux *runtime.ServeMux, 
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/simple.SimpleAPI/DeleteSession", runtime.WithHTTPPathPattern("/v1/session/{ID}"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/simple.SimpleAPI/DeleteSession", runtime.WithHTTPPathPattern("/v1/session/{IDorName}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -536,9 +536,9 @@ var (
 
 	pattern_SimpleAPI_GetAllSessions_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "session"}, ""))
 
-	pattern_SimpleAPI_GetSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "session", "ID"}, ""))
+	pattern_SimpleAPI_GetSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "session", "IDorName"}, ""))
 
-	pattern_SimpleAPI_DeleteSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "session", "ID"}, ""))
+	pattern_SimpleAPI_DeleteSession_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "session", "IDorName"}, ""))
 
 	pattern_SimpleAPI_GetProtos_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "proto"}, ""))
 

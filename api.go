@@ -42,11 +42,15 @@ func (s *SimpleAPI) GetAllSessions(ctx context.Context, req *proto.GetAllSession
 
 func (s *SimpleAPI) GetSession(ctx context.Context, req *proto.GetSessionReq) (rsp *proto.GetSessionRsp, e error) {
 	rsp = &proto.GetSessionRsp{Code: proto.Code_OK}
-	sess := sessManager.GetSession(req.ID)
+	var sess *manager.Session
+	sess = sessManager.GetSession(req.IDorName)
 	if sess == nil {
-		rsp.Code = proto.Code_InternalError
-		rsp.Msg = "session not found"
-		return
+		sess = sessManager.GetSessionByName(req.IDorName)
+		if sess == nil {
+			rsp.Code = proto.Code_InternalError
+			rsp.Msg = "session not found"
+			return
+		}
 	}
 	rsp.Session = convertSession(sess)
 	return
@@ -54,7 +58,7 @@ func (s *SimpleAPI) GetSession(ctx context.Context, req *proto.GetSessionReq) (r
 
 func (s *SimpleAPI) DeleteSession(ctx context.Context, req *proto.DeleteSessionReq) (rsp *proto.DeleteSessionRsp, e error) {
 	rsp = &proto.DeleteSessionRsp{Code: proto.Code_OK}
-	err := sessManager.DeleteSession(ctx, req.ID)
+	err := sessManager.DeleteSession(ctx, req.IDorName)
 	if err != nil {
 		rsp.Code = proto.Code_InternalError
 		rsp.Msg = err.Error()
