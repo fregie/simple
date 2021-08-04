@@ -30,6 +30,17 @@ services:
     networks:
       - simple
 
+  adapter-shadowsocks:
+    image: fregie/adapter-shadowsocks:latest
+      - 10003:10003
+      - 50000-50100:50000-50100
+    environment:
+      ADDR: 0.0.0.0:10003
+      PORT_RANGE: 50000-50100
+
+    networks:
+      - simple
+
   simple:
     image: fregie/simple:latest
     depends_on:

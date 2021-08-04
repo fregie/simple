@@ -28,3 +28,9 @@ simple:
 .PHONY: spctl
 spctl:
 	go build -o output/spctl ./spctl
+
+.PHONY: docker
+docker:
+	docker build -t fregie/simple:latest .
+	docker build -f ./adapter/trojan/Dockerfile -t fregie/adapter-trojan:latest .
+	docker build -f ./adapter/shadowsocks/Dockerfile -t fregie/adapter-shadowsocks:latest .
