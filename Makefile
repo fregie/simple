@@ -34,3 +34,6 @@ docker:
 	docker build -t fregie/simple:latest .
 	docker build -f ./adapter/trojan/Dockerfile -t fregie/adapter-trojan:latest .
 	docker build -f ./adapter/shadowsocks/Dockerfile -t fregie/adapter-shadowsocks:latest .
+
+release:
+	tar -czvf output/simple-docker-compose.tar.gz --exclude=docker/simple/simple.db --exclude=docker/trojan-go/data/trojan.db docker
