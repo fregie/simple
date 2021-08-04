@@ -19,6 +19,9 @@ doc:
 adapter-trojan:
 	go build -o output/adapter-trojan ./adapter/trojan
 
+adapter-shadowsocks:
+	go build -o output/adapter-shadowsocks ./adapter/shadowsocks
+
 simple:
 	go build -o output/simple
 

@@ -18,7 +18,7 @@ services:
   adapter-trojan:
     build:
       context: ../
-      dockerfile: Dockerfile_adapter_trojan
+      dockerfile: adapter/trojan/Dockerfile
     depends_on:
       - trojan
     ports:
@@ -32,11 +32,26 @@ services:
     networks:
       - simple
 
+  adapter-shadowsocks:
+    build:
+      context: ../
+      dockerfile: adapter/shadowsocks/Dockerfile
+    ports:
+      - 10003:10003
+      - 50000-50100:50000-50100
+    environment:
+      ADDR: 0.0.0.0:10003
+      PORT_RANGE: 50000-50100
+
+    networks:
+      - simple
+
   simple:
     build:
       context: ../
       dockerfile: Dockerfile
     depends_on:
+      - adapter-shadowsocks
       - adapter-trojan
       - trojan
     ports: 

@@ -63,6 +63,7 @@ func main() {
 	}
 
 	for _, addr := range conf.Services {
+		Info.Printf("Register to service %s", addr)
 		conn, err := grpc.Dial(addr, grpc.WithInsecure())
 		if err != nil {
 			Error.Printf("Dial to service %s failed:%s", addr, err)

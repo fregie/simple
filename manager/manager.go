@@ -73,9 +73,9 @@ func (m *Manager) RegisterService(svc svcpb.InterfaceClient) error {
 	m.supportProtos = append(m.supportProtos, rsp.Name)
 	protoMap, ok := m.protoMap[rsp.Name]
 	if !ok {
-		m.protoMap[rsp.Name] = &sync.Map{}
+		protoMap = &sync.Map{}
+		m.protoMap[rsp.Name] = protoMap
 	}
-
 	rsp2, err := svc.IsSupportPersistence(context.Background(), &svcpb.IsSupportPersistenceReq{})
 	if err == nil && !rsp2.IsSupport {
 		go m.syncProtoSessions(svc, protoMap, time.Minute)
@@ -101,6 +101,11 @@ func (m *Manager) getService(name string) svcpb.InterfaceClient {
 }
 
 func (m *Manager) CreateSession(ctx context.Context, name, proto string, configType svcpb.ConfigType, opt *svcpb.Option, customOpt string) (*Session, error) {
+	if name != "" {
+		if _, ok := m.sessNameMap.Load(name); ok {
+			return nil, fmt.Errorf("Create Session: session %s already exists", name)
+		}
+	}
 	svc := m.getService(proto)
 	if svc == nil {
 		return nil, errors.New("Unknown proto")
@@ -157,6 +162,10 @@ func (m *Manager) DeleteSession(ctx context.Context, sessIDorName string) error 
 	sess := v.(*Session)
 	m.sessNameMap.Delete(sess.Name)
 	m.protoMap[sess.Proto].Delete(sess.Index)
+	err := m.db.Delete(sess).Error
+	if err != nil {
+		m.logger.Printf("Delete session to db failed: %s", err)
+	}
 	svc := m.getService(sess.Proto)
 	if svc == nil {
 		return errors.New("Unknown proto")
@@ -167,10 +176,6 @@ func (m *Manager) DeleteSession(ctx context.Context, sessIDorName string) error 
 	}
 	if rsp.Code != svcpb.Code_OK {
 		return fmt.Errorf("Delete %s", rsp.Msg)
-	}
-	err = m.db.Delete(sess).Error
-	if err != nil {
-		m.logger.Printf("Delete session to db failed: %s", err)
 	}
 	return nil
 }
@@ -211,9 +216,10 @@ func (m *Manager) GetAllSession() []*Session {
 }
 
 func (m *Manager) syncProtoSessions(svc svcpb.InterfaceClient, protoMap *sync.Map, interval time.Duration) {
-	ticker := time.NewTicker(interval)
-	for range ticker.C {
+	timer := time.NewTimer(0)
+	for range timer.C {
 		ctx, cancel := context.WithTimeout(context.Background(), interval)
+		svc.SetMetadata(ctx, &svcpb.SetMetadataReq{Domain: m.host})
 		protoMap.Range(func(k, v interface{}) bool {
 			index := k.(string)
 			rsp, err := svc.Get(ctx, &svcpb.GetReq{Index: index})
@@ -223,9 +229,16 @@ func (m *Manager) syncProtoSessions(svc svcpb.InterfaceClient, protoMap *sync.Ma
 			}
 			if rsp.Code != svcpb.Code_OK {
 				sess := v.(*Session)
-				rsp, err := svc.Create(ctx, &svcpb.CreateReq{
-					ConfigType:   svcpb.ConfigType(sess.ConfigType),
-					Opt:          sess.convertOption(),
+				rsp, err := svc.CreateByConfig(ctx, &svcpb.CreateByConfigReq{
+					Index: sess.Index,
+					Opt: &svcpb.Option{
+						SendRateLimit: sess.SendRateLimit,
+						RecvRateLimit: sess.RecvRateLimit,
+					},
+					Config: &svcpb.Config{
+						ConfigType: svcpb.ConfigType(sess.ConfigType),
+						Config:     []byte(sess.Config),
+					},
 					CustomOption: sess.CustomOption,
 				})
 				if err != nil {
@@ -239,6 +252,7 @@ func (m *Manager) syncProtoSessions(svc svcpb.InterfaceClient, protoMap *sync.Ma
 			return true
 		})
 		cancel()
+		timer.Reset(interval)
 	}
 }
 

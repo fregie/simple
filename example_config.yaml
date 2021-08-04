@@ -3,4 +3,4 @@ grpc_gateway_addr: "0.0.0.0:4443"
 host: simple.fregie.cn
 sqlite: /root/simple/docker/simple/simple.db
 services:
-  - "127.0.0.1:10001"
+  - "127.0.0.1:10003"

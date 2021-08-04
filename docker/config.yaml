@@ -4,3 +4,4 @@ host: simple.fregie.cn
 sqlite: /opt/simple/simple.db
 services:
   - "adapter-trojan:10001"
+  - "10.0.8.8:10003"

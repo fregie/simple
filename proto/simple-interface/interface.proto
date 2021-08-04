@@ -94,6 +94,7 @@ message CreateByConfigRsp {
 
 message GetReq {
   string Index = 1;
+  ConfigType ConfigType = 2;
 }
 message GetRsp {
   Code Code = 1;
@@ -110,7 +111,9 @@ message DeleteRsp {
   string Msg = 2;
 }
 
-message GetAllReq {}
+message GetAllReq {
+  ConfigType ConfigType = 1;
+}
 message GetAllRsp {
   Code Code = 1;
   string Msg = 2;

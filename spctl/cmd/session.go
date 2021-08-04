@@ -76,7 +76,7 @@ func showSession(cmd *cobra.Command, args []string) {
 	pterm.Printf("    Upload rate limit:   %d mbps\n", sess.Opt.SendRateLimit)
 	pterm.Printf("    Download rate limit: %d mbps\n", sess.Opt.RecvRateLimit)
 	if *isShowConfig {
-		pterm.Printf("Config:\n%s", sess.Config)
+		pterm.Printf("Config:\n%s\n", sess.Config)
 	}
 }
 
