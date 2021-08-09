@@ -126,8 +126,8 @@ func init() {
 	getCmd.AddCommand(getSessCmd)
 
 	createName = createSessCmd.Flags().String("name", "", "session name")
-	proto = createSessCmd.Flags().String("proto", "trojan", "proto")
-	ctype = createSessCmd.Flags().String("type", "json", "config type")
+	proto = createSessCmd.Flags().String("proto", "ss", `Check available proto:spctl get protos`)
+	ctype = createSessCmd.Flags().String("type", "url", "config type")
 	limit = createSessCmd.Flags().Uint64("limit", 0, "speed limit")
 	createCmd.AddCommand(createSessCmd)
 	deleteCmd.AddCommand(delSessCmd)
