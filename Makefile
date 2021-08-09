@@ -36,4 +36,8 @@ docker:
 	docker build -f ./adapter/shadowsocks/Dockerfile -t fregie/adapter-shadowsocks:latest .
 
 release:
-	tar -czvf output/simple-docker-compose.tar.gz --exclude=docker/simple/simple.db --exclude=docker/trojan-go/data/trojan.db docker
+	tar -czvf output/simple-docker-compose.tar.gz \
+		--exclude=docker/simple/simple.db \
+		--exclude=docker/trojan-go/data/trojan.db \
+		--exclude=docker/docker-compose-build.yaml \
+		docker

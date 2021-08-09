@@ -32,6 +32,7 @@ services:
 
   adapter-shadowsocks:
     image: fregie/adapter-shadowsocks:latest
+    ports:
       - 10003:10003
       - 50000-50100:50000-50100
     environment:
@@ -44,6 +45,7 @@ services:
   simple:
     image: fregie/simple:latest
     depends_on:
+      - adapter-shadowsocks
       - adapter-trojan
       - trojan
     ports: 
