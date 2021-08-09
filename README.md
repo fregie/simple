@@ -34,7 +34,7 @@ Simple使用多服务模块化设计，需要数个服务同时运行，传统�
 
 ### 下载docker-compose定义文件
 ```shell
-wget https://github.com/fregie/simple/releases/download/v1.0.0/simple-docker-compose.tar.gz
+wget https://github.com/fregie/simple/releases/download/v1.0.1/simple-docker-compose.tar.gz
 tar -xzf simple-docker-compose.tar.gz
 cd docker
 ```
@@ -56,7 +56,7 @@ docker-compose up -d
 
 ### 安装命令行管理工具spctl
 ```shell
-wget https://github.com/fregie/simple/releases/download/v1.0.0/spctl
+wget https://github.com/fregie/simple/releases/download/v1.0.1/spctl
 chmod +x spctl
 ```
 `spctl`会读取$HOME目录下的`.spctl`文件作为配置文件
