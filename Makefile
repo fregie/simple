@@ -27,7 +27,7 @@ simple:
 
 .PHONY: spctl
 spctl:
-	go build -o output/spctl ./spctl
+	go build -ldflags="-s -w" -o output/spctl ./spctl
 
 .PHONY: docker
 docker:
