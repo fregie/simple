@@ -8,8 +8,8 @@ import (
 	"golang.org/x/time/rate"
 )
 
-type OptionHandler func(*Option)
-type Option struct {
+type SSOptionHandler func(*SSOption)
+type SSOption struct {
 	EnableBlocklist      bool
 	Blocklist            map[string]bool
 	EnableTrafficControl bool
@@ -19,23 +19,23 @@ type Option struct {
 	Dialer               Dialer
 }
 
-func withBlocklist(blocklist map[string]bool) OptionHandler {
-	return func(opt *Option) {
+func withBlocklist(blocklist map[string]bool) SSOptionHandler {
+	return func(opt *SSOption) {
 		opt.EnableBlocklist = true
 		opt.Blocklist = blocklist
 	}
 }
 
-func withTrafficControl(txBucket, rxBucket *rate.Limiter) OptionHandler {
-	return func(opt *Option) {
+func withTrafficControl(txBucket, rxBucket *rate.Limiter) SSOptionHandler {
+	return func(opt *SSOption) {
 		opt.EnableTrafficControl = true
 		opt.TxBucket = txBucket
 		opt.RxBucket = rxBucket
 	}
 }
 
-func withDialer(dialer Dialer) OptionHandler {
-	return func(opt *Option) {
+func withDialer(dialer Dialer) SSOptionHandler {
+	return func(opt *SSOption) {
 		if dialer != nil {
 			opt.Dialer = dialer
 		} else {
@@ -44,9 +44,9 @@ func withDialer(dialer Dialer) OptionHandler {
 	}
 }
 
-func handleConn(ciphConn net.Conn, opts ...OptionHandler) error {
+func handleConn(ciphConn net.Conn, opts ...SSOptionHandler) error {
 	defer ciphConn.Close()
-	opt := &Option{}
+	opt := &SSOption{}
 	for _, opth := range opts {
 		opth(opt)
 	}

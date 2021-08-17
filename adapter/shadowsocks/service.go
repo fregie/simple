@@ -84,12 +84,13 @@ func (s *Service) Create(_ context.Context, req *svcpb.CreateReq) (rsp *svcpb.Cr
 			return
 		}
 	}
-	ss, err := s.manager.Add(copt.Port, copt.Method, copt.Password)
+	ss, err := s.manager.Add(copt.Port, copt.Method, copt.Password, ss.WithRateLimit(req.Opt.SendRateLimit, req.Opt.RecvRateLimit))
 	if err != nil {
 		rsp.Code = svcpb.Code_Fail
 		rsp.Msg = err.Error()
 		return
 	}
+
 	rsp.Index = strconv.Itoa(ss.Port)
 	rsp.Config = &svcpb.Config{}
 	switch req.ConfigType {

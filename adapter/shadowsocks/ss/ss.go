@@ -104,9 +104,9 @@ func NewSS(server string, port int, method, password string, dialer Dialer) *SS 
 	}
 }
 
-func (ss *SS) SetRatelimit(tRate, rRate float64, tCapacity, rCapacity int64) {
-	ss.txLimit = rate.NewLimiter(rate.Limit(tRate), int(tCapacity))
-	ss.rxLimit = rate.NewLimiter(rate.Limit(rRate), int(rCapacity))
+func (ss *SS) SetRatelimit(tRate, rRate float64, tBurst, rBurst int64) {
+	ss.txLimit = rate.NewLimiter(rate.Limit(tRate), int(tBurst))
+	ss.rxLimit = rate.NewLimiter(rate.Limit(rRate), int(rBurst))
 	ss.isRatelimit = true
 }
 

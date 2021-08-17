@@ -25,7 +25,24 @@ func (m *Manager) SetHost(host string) {
 	m.host = host
 }
 
-func (m *Manager) Add(port int, method, password string) (*SS, error) {
+type OptionHandler func(*Option)
+type Option struct {
+	SendRateLimit uint64
+	RecvRateLimit uint64
+}
+
+func WithRateLimit(send, recv uint64) OptionHandler {
+	return func(o *Option) {
+		o.SendRateLimit = send
+		o.RecvRateLimit = recv
+	}
+}
+
+func (m *Manager) Add(port int, method, password string, opts ...OptionHandler) (*SS, error) {
+	opt := &Option{}
+	for _, o := range opts {
+		o(opt)
+	}
 	if m.host == "" {
 		return nil, fmt.Errorf("host not set, please SetHost first")
 	}
@@ -38,6 +55,10 @@ func (m *Manager) Add(port int, method, password string) (*SS, error) {
 	ss := NewSS(m.host, port, method, password, &net.Dialer{})
 	if _, exist := m.ssMap.LoadOrStore(port, ss); exist {
 		return nil, fmt.Errorf("port %d already in use", port)
+	}
+	if opt.RecvRateLimit > 0 && opt.SendRateLimit > 0 {
+		ss.SetRatelimit(float64(opt.SendRateLimit), float64(opt.RecvRateLimit),
+			2*int64(opt.SendRateLimit), 2*int64(opt.RecvRateLimit))
 	}
 	err := ss.RunTCP()
 	if err != nil {

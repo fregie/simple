@@ -100,9 +100,9 @@ func timedCopy(dst net.PacketConn, target net.Addr, src net.PacketConn, timeout 
 	}
 }
 
-func handlePacketConn(ctx context.Context, ciphPc net.PacketConn, bindAddr string, opts ...OptionHandler) {
+func handlePacketConn(ctx context.Context, ciphPc net.PacketConn, bindAddr string, opts ...SSOptionHandler) {
 	defer ciphPc.Close()
-	opt := &Option{}
+	opt := &SSOption{}
 	for _, opth := range opts {
 		opth(opt)
 	}
