@@ -94,7 +94,7 @@ func createSession(cmd *cobra.Command, args []string) {
 	checkRsp(rsp.Code, rsp.Msg)
 	pterm.Success.Print("Create success!\n")
 	pterm.FgLightCyan.Printf("ID:            %s\n", rsp.ID)
-	pterm.Printf("Name:         %s\n", *createName)
+	pterm.Printf("Name:          %s\n", *createName)
 	pterm.Printf("Proto:         %s\n", rsp.Proto)
 	pterm.Printf("Config type:   %s\n", rsp.ConfigType.String())
 	pterm.Printf("Config:\n%s\n", rsp.Config)
