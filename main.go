@@ -11,6 +11,7 @@ import (
 	"os"
 
 	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
+	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 
 	version "github.com/fregie/PrintVersion"
@@ -76,14 +77,24 @@ func main() {
 			continue
 		}
 	}
-
+	serverOpts := make([]grpc.ServerOption, 0)
+	if conf.PromAddr != "" {
+		go runPromHttp(conf.PromAddr)
+		serverOpts = append(serverOpts,
+			grpc.StreamInterceptor(grpc_prometheus.StreamServerInterceptor),
+			grpc.UnaryInterceptor(grpc_prometheus.UnaryServerInterceptor),
+		)
+	}
 	lis, err := net.Listen("tcp", conf.Addr)
 	if err != nil {
 		Error.Fatalf("failed to listen: %v", err)
 	}
-	grpcServer := grpc.NewServer()
+	grpcServer := grpc.NewServer(serverOpts...)
 	pb.RegisterSimpleAPIServer(grpcServer, &SimpleAPI{})
 	reflection.Register(grpcServer)
+	if conf.PromAddr != "" {
+		grpc_prometheus.Register(grpcServer)
+	}
 	if conf.GrpcGatewayAddr != "" {
 		_, port, _ := net.SplitHostPort(lis.Addr().String())
 		go runGateway(fmt.Sprintf("127.0.0.1:%s", port), conf.GrpcGatewayAddr)

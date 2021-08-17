@@ -7,8 +7,10 @@ require (
 	github.com/fregie/PrintVersion v0.1.0
 	github.com/fregie/freconn v0.0.0-20210629070657-cec5fd5dd3d0
 	github.com/fregie/gotool v0.1.9
+	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.5.0
 	github.com/p4gefau1t/trojan-go v0.10.4
+	github.com/prometheus/client_golang v1.0.0
 	github.com/pseudomuto/protoc-gen-doc v1.4.1
 	github.com/pterm/pterm v0.12.27
 	github.com/shadowsocks/go-shadowsocks2 v0.1.5

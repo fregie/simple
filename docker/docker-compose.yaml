@@ -51,6 +51,7 @@ services:
     ports: 
       - 4433:4433
       - 4444:4444
+      - 4442:4442
     volumes:
       - ./config.yaml:/config.yaml
       - ./simple:/opt/simple

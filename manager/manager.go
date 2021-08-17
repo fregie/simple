@@ -215,6 +215,20 @@ func (m *Manager) GetAllSession() []*Session {
 	return sessions
 }
 
+func (m *Manager) GetProtoSessions(proto string) ([]*Session, error) {
+	sessMap, ok := m.protoMap[proto]
+	if !ok {
+		return nil, fmt.Errorf("Unknown proto %s", proto)
+	}
+	sessions := make([]*Session, 0)
+	sessMap.Range(func(k, v interface{}) bool {
+		sess := v.(*Session)
+		sessions = append(sessions, sess)
+		return true
+	})
+	return sessions, nil
+}
+
 func (m *Manager) syncProtoSessions(svc svcpb.InterfaceClient, protoMap *sync.Map, interval time.Duration) {
 	timer := time.NewTimer(0)
 	for range timer.C {

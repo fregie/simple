@@ -9,6 +9,7 @@ import (
 type Config struct {
 	Addr            string   `yaml:"grpc_addr"`
 	GrpcGatewayAddr string   `yaml:"grpc_gateway_addr"`
+	PromAddr        string   `yaml:"prom_addr"`
 	Host            string   `yaml:"host"`
 	Sqlite          string   `yaml:"sqlite"`
 	Services        []string `yaml:"services"`
