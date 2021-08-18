@@ -1,7 +1,6 @@
 # Simple
 
-[![Build](https://github.com/fregie/simple/actions/workflows/gobuild.yml/badge.svg?branch=main)](https://github.com/fregie/simple/actions/workflows/gobuild.yml)
-
+[![Build](https://img.shields.io/github/workflow/status/fregie/simple/Build?style=flat-square)](https://github.com/fregie/simple/actions/workflows/gobuild.yml) ![GPL](https://img.shields.io/github/license/fregie/simple?style=flat-square) ![Downloads](https://img.shields.io/github/downloads/fregie/simple/total?style=flat-square)
 
 Simple是一款网络代理/VPN服务端管理平台。使用simple来轻松管理服务器上多种不同协议的服务端。
 
