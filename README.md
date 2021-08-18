@@ -18,13 +18,16 @@ Simple是一款网络代理/VPN服务端管理平台。使用simple来轻松管�
 - [ ] V2ray
 
 ## 功能
-- [x] 创建、删除、查询用户配置
+- [x] 创建、删除、查询VPN客户端配置
 - [x] 配置数据持久化
-- [x] 限速（需要协议实现支持）
+- [x] 用户级限速
+- [x] 容器化部署
 - [x] 使用grpc api管理
+- [x] 使用http api管理
 - [x] 使用命令行工具(spctl)管理
-- [x] 自定义服务端对接
-- [x] 支持prometheus数据采集
+- [x] 使用grpc+protobuf与VPN对接，可自由插拔不同VPN
+- [x] prometheus数据指标采集
+- [ ] 使用dashboard管理
 
 ## Show me
 ![create](docs/img/spctl-create.png)
