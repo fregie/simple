@@ -2,7 +2,39 @@
 
 [![Build](https://img.shields.io/github/workflow/status/fregie/simple/Build?style=flat-square)](https://github.com/fregie/simple/actions/workflows/gobuild.yml) ![GPL](https://img.shields.io/github/license/fregie/simple?style=flat-square) ![Downloads](https://img.shields.io/github/downloads/fregie/simple/total?style=flat-square)
 
-Simple是一款网络代理/VPN服务端管理平台。使用simple来轻松管理服务器上多种不同协议的服务端。
+Simple是一款网络代理/VPN服务端管理平台。使用simple来轻松管理服务器上多种不同协议的服务端。  
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [为什么](#为什么)
+- [支持的协议](#支持的协议)
+- [功能](#功能)
+- [Show me](#show-me)
+- [安装](#安装)
+  - [安装docker和docker-compose](#安装docker和docker-compose)
+  - [下载docker-compose定义文件](#下载docker-compose定义文件)
+  - [修改配置](#修改配置)
+      - [config.yaml](#configyaml)
+      - [trojan-go/server.json （不使用trojan无需修改）](#trojan-goserverjson-不使用trojan无需修改)
+      - [trojan-go/simple.fregie.cn.crt & simple.fregie.cn.key （不使用trojan无需修改）](#trojan-gosimplefregiecncrt-simplefregiecnkey-不使用trojan无需修改)
+  - [启动服务](#启动服务)
+  - [安装命令行管理工具spctl](#安装命令行管理工具spctl)
+- [使用](#使用)
+  - [配置spctl](#配置spctl)
+  - [session](#session)
+    - [查看可用协议](#查看可用协议)
+    - [创建](#创建)
+    - [查看全部](#查看全部)
+    - [查看特定session](#查看特定session)
+    - [删除](#删除)
+- [配置](#配置)
+  - [Simple](#simple-1)
+- [对接prometheus](#对接prometheus)
+
+<!-- /code_chunk_output -->
+
 
 ## 为什么
 如果你只是想在服务器上随便启动一个网络代理的服务端自己用，那么你不需要simple  
@@ -126,3 +158,33 @@ ss://YWVzLTEyOC1nY206M1IwdjAyQjF0VTFKMXFYekBzaW1wbGUuZnJlZ2llLmNuOjUwMDAx
 $ spctl delete session ss-01                              
  SUCCESS  Delete ss-01
 ```
+
+## 配置
+### Simple
+config.yaml
+```yaml
+grpc_addr: "0.0.0.0:4433"                    # grpc服务的监听地址
+grpc_gateway_addr: "0.0.0.0:4443"            # grpc_gateway的监听地址（http接口）
+prom_addr: "0.0.0.0:4442"                    # export prometheus数据的http监听地址
+host: simple.fregie.cn                       # 服务器host，ip或者域名，用于通知session该服务器的外网ip或域名
+sqlite: /root/simple/docker/simple/simple.db # sqlite存储数据的路径，用于数据持久化
+services:                                    # 接入服务的vpn服务端适配器的地址
+  - "127.0.0.1:10003"
+```
+
+## 对接prometheus
+simple支持通过prometheus采集指标，并通过grafana展示。  
+在配置文件中增加:
+```yaml
+prom_addr: "0.0.0.0:4442"
+```
+simple会使用这个地址作为export的http addr，在prometheus配置文件中的`scrape_configs`下增加对这个地址指标的采集即可采集到数据:
+```yaml
+- job_name: simple
+  scrape_interval: 10s
+  static_configs:
+  - targets:
+    - your_server:4442
+```
+在grafana中import该dashboard: 14879
+https://grafana.com/grafana/dashboards/14879
