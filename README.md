@@ -35,6 +35,11 @@ Simple是一款网络代理/VPN服务端管理平台。使用simple来轻松管�
 
 <!-- /code_chunk_output -->
 
+## Contribute
+希望能有小伙伴共同开发这个项目，目前最需要开发的功能：
+* Dashboard (前端)
+
+有意向的同学可以在issue中提出或者发送邮件至: fregie@fregie.cn
 
 ## 为什么
 如果你只是想在服务器上随便启动一个网络代理的服务端自己用，那么你不需要simple  
