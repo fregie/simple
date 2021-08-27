@@ -4,10 +4,17 @@
 
 Simple是一款网络代理/VPN服务端管理平台。使用simple来轻松管理服务器上多种不同协议的服务端。  
 
+## Contribute
+希望能有小伙伴共同开发这个项目，目前最需要开发的功能：
+* Dashboard (前端)
+
+有意向的同学可以在issue中提出或者发送邮件至: fregie@fregie.cn
+
 <!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=6 orderedList=false} -->
 
 <!-- code_chunk_output -->
 
+- [Contribute](#contribute)
 - [为什么](#为什么)
 - [支持的协议](#支持的协议)
 - [功能](#功能)
@@ -34,12 +41,6 @@ Simple是一款网络代理/VPN服务端管理平台。使用simple来轻松管�
 - [对接prometheus](#对接prometheus)
 
 <!-- /code_chunk_output -->
-
-## Contribute
-希望能有小伙伴共同开发这个项目，目前最需要开发的功能：
-* Dashboard (前端)
-
-有意向的同学可以在issue中提出或者发送邮件至: fregie@fregie.cn
 
 ## 为什么
 如果你只是想在服务器上随便启动一个网络代理的服务端自己用，那么你不需要simple  
