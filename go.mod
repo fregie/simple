@@ -7,6 +7,7 @@ require (
 	github.com/fregie/PrintVersion v0.1.0
 	github.com/fregie/freconn v0.0.0-20210629070657-cec5fd5dd3d0
 	github.com/fregie/gotool v0.1.9
+	github.com/fregie/shadowsocks-url v1.0.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.5.0
 	github.com/p4gefau1t/trojan-go v0.10.4

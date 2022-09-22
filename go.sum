@@ -148,6 +148,8 @@ github.com/fregie/freconn v0.0.0-20210629070657-cec5fd5dd3d0 h1:jrOnWRKiQWm7uG6+
 github.com/fregie/freconn v0.0.0-20210629070657-cec5fd5dd3d0/go.mod h1:sO6xRSfRrxZeml9L48j8E6J6Jv0EzY8LhzSF+UNujlk=
 github.com/fregie/gotool v0.1.9 h1:vgC7MZcpKTBKFmw5UJ1TJlRTfr0xpuaJRdHqzuM2dTI=
 github.com/fregie/gotool v0.1.9/go.mod h1:alD0nb9+Sjdoy4W9VtEIBap+1uPqqFf6DUYr0DtEnBc=
+github.com/fregie/shadowsocks-url v1.0.0 h1:9rWX8Vw4gk8bPPVBhf2SabXCLcBOPswxkuiiYcsBaq8=
+github.com/fregie/shadowsocks-url v1.0.0/go.mod h1:V4rOQdO3Hs3oeTHKWwY9PXHrGIGfbSuI05RxbqZ9pj0=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/fsnotify/fsnotify v1.4.9 h1:hsms1Qyu0jgnwNXIxa+/V/PDsU6CfLf6CNO8H7IWoS4=
 github.com/fsnotify/fsnotify v1.4.9/go.mod h1:znqG4EE+3YCdAaPaxE2ZRY/06pZUdp0tY4IgpuI1SZQ=

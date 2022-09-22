@@ -15,6 +15,11 @@ services:
     networks:
       - simple
 
+  nginx:
+    image: nginx
+    networks:
+      - simple
+
   adapter-trojan:
     build:
       context: ../

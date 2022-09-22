@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"context"
@@ -10,12 +10,13 @@ import (
 )
 
 type SimpleAPI struct {
+	SessManager *manager.Manager
 	proto.UnimplementedSimpleAPIServer
 }
 
 func (s *SimpleAPI) CreateSession(ctx context.Context, req *proto.CreateSessionReq) (rsp *proto.CreateSessionRsp, e error) {
 	rsp = &proto.CreateSessionRsp{Code: proto.Code_OK}
-	sess, err := sessManager.CreateSession(ctx, req.Name, req.Proto, req.ConfigType, req.Opt, req.CustomOpt)
+	sess, err := s.SessManager.CreateSession(ctx, req.Name, req.Proto, req.ConfigType, req.Opt, req.CustomOpt)
 	if err != nil {
 		rsp.Code = proto.Code_InternalError
 		rsp.Msg = err.Error()
@@ -30,7 +31,7 @@ func (s *SimpleAPI) CreateSession(ctx context.Context, req *proto.CreateSessionR
 
 func (s *SimpleAPI) GetAllSessions(ctx context.Context, req *proto.GetAllSessionsReq) (rsp *proto.GetAllSessionsRsp, e error) {
 	rsp = &proto.GetAllSessionsRsp{Code: proto.Code_OK}
-	sessions := sessManager.GetAllSession()
+	sessions := s.SessManager.GetAllSession()
 	rsp.Sessions = make([]*proto.Session, 0)
 	for _, sess := range sessions {
 		s := convertSession(sess)
@@ -43,9 +44,9 @@ func (s *SimpleAPI) GetAllSessions(ctx context.Context, req *proto.GetAllSession
 func (s *SimpleAPI) GetSession(ctx context.Context, req *proto.GetSessionReq) (rsp *proto.GetSessionRsp, e error) {
 	rsp = &proto.GetSessionRsp{Code: proto.Code_OK}
 	var sess *manager.Session
-	sess = sessManager.GetSession(req.IDorName)
+	sess = s.SessManager.GetSession(req.IDorName)
 	if sess == nil {
-		sess = sessManager.GetSessionByName(req.IDorName)
+		sess = s.SessManager.GetSessionByName(req.IDorName)
 		if sess == nil {
 			rsp.Code = proto.Code_InternalError
 			rsp.Msg = "session not found"
@@ -58,7 +59,7 @@ func (s *SimpleAPI) GetSession(ctx context.Context, req *proto.GetSessionReq) (r
 
 func (s *SimpleAPI) DeleteSession(ctx context.Context, req *proto.DeleteSessionReq) (rsp *proto.DeleteSessionRsp, e error) {
 	rsp = &proto.DeleteSessionRsp{Code: proto.Code_OK}
-	err := sessManager.DeleteSession(ctx, req.IDorName)
+	err := s.SessManager.DeleteSession(ctx, req.IDorName)
 	if err != nil {
 		rsp.Code = proto.Code_InternalError
 		rsp.Msg = err.Error()
@@ -69,7 +70,7 @@ func (s *SimpleAPI) DeleteSession(ctx context.Context, req *proto.DeleteSessionR
 
 func (s *SimpleAPI) GetProtos(ctx context.Context, req *proto.GetProtosReq) (rsp *proto.GetProtosRsp, e error) {
 	rsp = &proto.GetProtosRsp{Code: proto.Code_OK}
-	rsp.Protos = sessManager.GetProtos()
+	rsp.Protos = s.SessManager.GetProtos()
 	return
 }
 

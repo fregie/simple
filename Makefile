@@ -41,3 +41,6 @@ release:
 		--exclude=docker/trojan-go/data/trojan.db \
 		--exclude=docker/docker-compose-build.yaml \
 		docker
+
+test:
+	docker-compose -f docker/docker-compose-build.yaml up --build -d

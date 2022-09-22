@@ -23,9 +23,9 @@ type Service struct {
 }
 
 type CustomOption struct {
-	Port     int
-	Password string
-	Method   string
+	Port     int    `json:"port"`
+	Password string `json:"password"`
+	Method   string `json:"method"`
 }
 
 // NewService returns a new shadowsocks adapter service.
@@ -84,7 +84,11 @@ func (s *Service) Create(_ context.Context, req *svcpb.CreateReq) (rsp *svcpb.Cr
 			return
 		}
 	}
-	ss, err := s.manager.Add(copt.Port, copt.Method, copt.Password, ss.WithRateLimit(req.Opt.SendRateLimit, req.Opt.RecvRateLimit))
+	var limitSend, limitRecv uint64
+	if req.Opt != nil {
+		limitSend, limitRecv = req.Opt.SendRateLimit, req.Opt.RecvRateLimit
+	}
+	ss, err := s.manager.Add(copt.Port, copt.Method, copt.Password, ss.WithRateLimit(limitSend, limitRecv))
 	if err != nil {
 		rsp.Code = svcpb.Code_Fail
 		rsp.Msg = err.Error()

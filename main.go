@@ -15,6 +15,7 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 
 	version "github.com/fregie/PrintVersion"
+	"github.com/fregie/simple/api"
 	"github.com/fregie/simple/manager"
 	pb "github.com/fregie/simple/proto/gen/go/api"
 	"google.golang.org/grpc"
@@ -90,7 +91,7 @@ func main() {
 		Error.Fatalf("failed to listen: %v", err)
 	}
 	grpcServer := grpc.NewServer(serverOpts...)
-	pb.RegisterSimpleAPIServer(grpcServer, &SimpleAPI{})
+	pb.RegisterSimpleAPIServer(grpcServer, &api.SimpleAPI{SessManager: sessManager})
 	reflection.Register(grpcServer)
 	if conf.PromAddr != "" {
 		grpc_prometheus.Register(grpcServer)
