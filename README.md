@@ -3,13 +3,6 @@
 [![Build](https://img.shields.io/github/workflow/status/fregie/simple/Build?style=flat-square)](https://github.com/fregie/simple/actions/workflows/gobuild.yml) ![GPL](https://img.shields.io/github/license/fregie/simple?style=flat-square) ![Downloads](https://img.shields.io/github/downloads/fregie/simple/total?style=flat-square)
 
 Simple是一款网络代理/VPN服务端管理平台。使用simple来轻松管理服务器上多种不同协议的服务端。  
-
-## Contribute
-希望能有小伙伴共同开发这个项目，目前最需要开发的功能：
-* Dashboard (前端)
-
-有意向的同学可以在issue中提出或者发送邮件至: fregie@fregie.cn
-
 <!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=6 orderedList=false} -->
 
 <!-- code_chunk_output -->
