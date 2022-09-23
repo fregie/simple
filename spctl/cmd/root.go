@@ -85,11 +85,13 @@ func initConfig() {
 	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.
+	grpcAddr := defaultGrpcAddr
 	if err := viper.ReadInConfig(); err != nil {
 		pterm.Error.Printf("Read config file failed: %s", err)
-		os.Exit(1)
+	} else {
+		grpcAddr = viper.GetString("grpcAddr")
 	}
-	conn, err := grpc.Dial(viper.GetString("grpcAddr"), grpc.WithInsecure())
+	conn, err := grpc.Dial(grpcAddr, grpc.WithInsecure())
 	checkErr(err)
 	srv = pb.NewSimpleAPIClient(conn)
 }
