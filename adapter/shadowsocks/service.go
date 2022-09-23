@@ -11,7 +11,7 @@ import (
 
 	tool "github.com/fregie/gotool"
 	"github.com/fregie/simple/adapter/shadowsocks/ss"
-	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
+	svcpb "github.com/fregie/simple/proto/simple-interface"
 )
 
 const Name = "ss"

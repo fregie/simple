@@ -13,7 +13,6 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.5.0
 	github.com/p4gefau1t/trojan-go v0.10.4
 	github.com/prometheus/client_golang v1.0.0
-	github.com/pseudomuto/protoc-gen-doc v1.4.1
 	github.com/pterm/pterm v0.12.27
 	github.com/shadowsocks/go-shadowsocks2 v0.1.5
 	github.com/spf13/cobra v1.2.1
@@ -24,7 +23,6 @@ require (
 	golang.org/x/time v0.0.0-20210611083556-38a9dc6acbc6
 	google.golang.org/genproto v0.0.0-20210629135825-364e77e5a69d
 	google.golang.org/grpc v1.38.0
-	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.27.1
 	gopkg.in/yaml.v2 v2.4.0
 	gorm.io/gorm v1.21.11

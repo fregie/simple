@@ -4,9 +4,9 @@ import (
 	"context"
 
 	"github.com/fregie/simple/manager"
-	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
+	svcpb "github.com/fregie/simple/proto/simple-interface"
 
-	proto "github.com/fregie/simple/proto/gen/go/api"
+	proto "github.com/fregie/simple/proto/api"
 )
 
 type SimpleAPI struct {

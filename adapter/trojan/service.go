@@ -11,7 +11,7 @@ import (
 	"os"
 	"time"
 
-	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
+	svcpb "github.com/fregie/simple/proto/simple-interface"
 
 	tool "github.com/fregie/gotool"
 	trojanpb "github.com/p4gefau1t/trojan-go/api/service"

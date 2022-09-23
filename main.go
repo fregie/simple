@@ -10,14 +10,14 @@ import (
 	"net/http"
 	"os"
 
-	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
+	svcpb "github.com/fregie/simple/proto/simple-interface"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 
 	version "github.com/fregie/PrintVersion"
 	"github.com/fregie/simple/api"
 	"github.com/fregie/simple/manager"
-	pb "github.com/fregie/simple/proto/gen/go/api"
+	pb "github.com/fregie/simple/proto/api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/protobuf/encoding/protojson"

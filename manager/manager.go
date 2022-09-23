@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
+	svcpb "github.com/fregie/simple/proto/simple-interface"
 
 	"github.com/cloudquery/sqlite"
 	"gorm.io/gorm"

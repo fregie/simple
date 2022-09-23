@@ -25,8 +25,8 @@ import (
 	"github.com/pterm/pterm"
 	"github.com/spf13/cobra"
 
-	"github.com/fregie/simple/proto/gen/go/api"
-	inf "github.com/fregie/simple/proto/gen/go/simple-interface"
+	"github.com/fregie/simple/proto/api"
+	inf "github.com/fregie/simple/proto/simple-interface"
 )
 
 var (

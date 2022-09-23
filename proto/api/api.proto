@@ -2,9 +2,9 @@ syntax = "proto3";
 package simple;
 
 import "google/api/annotations.proto";
-import "simple-interface/interface.proto";
+import "proto/simple-interface/interface.proto";
 
-option go_package = "github.com/fregie/simple/proto/gen/go/api";
+option go_package = "github.com/fregie/simple/proto/api";
 
 service SimpleAPI {
   rpc CreateSession (CreateSessionReq) returns (CreateSessionRsp){

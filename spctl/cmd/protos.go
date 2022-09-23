@@ -16,7 +16,7 @@ limitations under the License.
 package cmd
 
 import (
-	pb "github.com/fregie/simple/proto/gen/go/api"
+	pb "github.com/fregie/simple/proto/api"
 	"github.com/pterm/pterm"
 	"github.com/spf13/cobra"
 )

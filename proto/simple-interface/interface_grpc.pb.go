@@ -457,5 +457,5 @@ var Interface_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "simple-interface/interface.proto",
+	Metadata: "proto/simple-interface/interface.proto",
 }

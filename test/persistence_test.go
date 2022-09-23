@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/fregie/simple/manager"
-	pb "github.com/fregie/simple/proto/gen/go/api"
-	pbinf "github.com/fregie/simple/proto/gen/go/simple-interface"
+	pb "github.com/fregie/simple/proto/api"
+	pbinf "github.com/fregie/simple/proto/simple-interface"
 	"github.com/fregie/simple/test"
 	"github.com/stretchr/testify/suite"
 	"google.golang.org/grpc"

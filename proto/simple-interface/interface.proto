@@ -1,6 +1,6 @@
 syntax = "proto3";
 package interface;
-option go_package = "github.com/fregie/simple/proto/gen/go/simple-interface;simple_interface";
+option go_package = "github.com/fregie/simple/proto/simple-interface;simple_interface";
 
 service Interface {
   rpc Name(NameReq) returns (NameRsp) {}

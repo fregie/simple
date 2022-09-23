@@ -5,7 +5,7 @@ import (
 
 	pb "github.com/cad/ovpm/api/pb"
 	tool "github.com/fregie/gotool"
-	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
+	svcpb "github.com/fregie/simple/proto/simple-interface"
 	"google.golang.org/grpc"
 )
 

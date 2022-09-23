@@ -3,7 +3,7 @@ package test
 import (
 	"context"
 
-	pb "github.com/fregie/simple/proto/gen/go/api"
+	pb "github.com/fregie/simple/proto/api"
 )
 
 const (

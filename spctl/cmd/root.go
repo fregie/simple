@@ -30,7 +30,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	pb "github.com/fregie/simple/proto/gen/go/api"
+	pb "github.com/fregie/simple/proto/api"
 )
 
 var cfgFile string

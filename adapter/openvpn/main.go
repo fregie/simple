@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
+	svcpb "github.com/fregie/simple/proto/simple-interface"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
