@@ -32,7 +32,7 @@ func (s *ssSuite) SetupSuite() {
 	s.Nil(err)
 }
 
-func (s *ssSuite) TestAddSession() {
+func (s *ssSuite) TestAddDelSession() {
 	httpReq, err := http.NewRequest("GET", test.HttpTestUrl, nil)
 	s.Nil(err)
 
@@ -59,4 +59,10 @@ func (s *ssSuite) TestAddSession() {
 	rsp2, err := ssurl.SSUrl(fmt.Sprintf("127.0.0.1:%d", conf.Port), conf.Method, conf.Password, httpReq)
 	s.Nilf(err, "ssurl.SSUrl: %v", err)
 	s.Equal(http.StatusOK, rsp2.StatusCode)
+
+	rsp3, err := s.srv.DeleteSession(context.Background(), &pb.DeleteSessionReq{IDorName: "SS-01"})
+	s.Nil(err)
+	s.Equal(pb.Code_OK, rsp3.Code)
+	_, err = ssurl.SSUrl(fmt.Sprintf("127.0.0.1:%d", conf.Port), conf.Method, conf.Password, httpReq)
+	s.NotNil(err)
 }

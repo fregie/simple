@@ -43,4 +43,7 @@ release:
 		docker
 
 test:
-	docker-compose -f docker/docker-compose-build.yaml up --build -d
+	docker-compose -f docker/docker-compose-test.yaml up --build -d
+	sleep 3
+	go test -v ./test -count=1
+	docker-compose -f docker/docker-compose-test.yaml down

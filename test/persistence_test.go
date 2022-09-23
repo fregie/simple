@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/suite"
 	"google.golang.org/grpc"
 
-	"gorm.io/driver/sqlite"
+	"github.com/cloudquery/sqlite"
 	"gorm.io/gorm"
 )
 
@@ -49,7 +49,33 @@ func (s *persistenceSuite) TestPersistenceSuite() {
 	s.Equal(pb.Code_OK, rsp1.Code)
 	s.NotEmpty(rsp1.Config)
 	sess := &manager.Session{Name: "SS-01"}
-	err = db.Find(&sess).Error
+	err = db.Where("name = ?", "SS-01").Find(sess).Error
 	s.Nil(err)
 	s.Equal(rsp1.ID, sess.ID)
+	err = db.Model(&manager.Session{}).Count(&count).Error
+	s.Nil(err)
+	s.Equal(int64(1), count)
+	rsp2, err := s.srv.CreateSession(ctx, &pb.CreateSessionReq{
+		Name:       "SS-02",
+		Proto:      "ss",
+		ConfigType: pbinf.ConfigType_JSON,
+	})
+	s.Nil(err)
+	s.Equal(pb.Code_OK, rsp2.Code)
+	s.NotEmpty(rsp2.Config)
+	sess = &manager.Session{Name: "SS-02"}
+	err = db.Where("name = ?", "SS-02").Find(sess).Error
+	s.Nil(err)
+	s.Equal(rsp2.ID, sess.ID)
+	err = db.Model(&manager.Session{}).Count(&count).Error
+	s.Nil(err)
+	s.Equal(int64(2), count)
+	rsp3, err := s.srv.DeleteSession(ctx, &pb.DeleteSessionReq{
+		IDorName: rsp1.ID,
+	})
+	s.Nil(err)
+	s.Equal(pb.Code_OK, rsp3.Code)
+	err = db.Model(&manager.Session{}).Count(&count).Error
+	s.Nil(err)
+	s.Equal(int64(1), count)
 }
