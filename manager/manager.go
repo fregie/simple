@@ -10,7 +10,7 @@ import (
 
 	svcpb "github.com/fregie/simple/proto/gen/go/simple-interface"
 
-	"gorm.io/driver/sqlite"
+	"github.com/cloudquery/sqlite"
 	"gorm.io/gorm"
 )
 
