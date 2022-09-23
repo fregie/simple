@@ -25,6 +25,7 @@ protobuf:
 
 doc:
 	protoc ${ipaths} --doc_out=./docs/api --doc_opt=markdown,api.md proto/api/api.proto
+	protoc ${ipaths} --doc_out=./docs --doc_opt=html,index.html proto/api/api.proto
 
 adapter-trojan:
 	go build -o output/adapter-trojan ./adapter/trojan
