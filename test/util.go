@@ -2,7 +2,6 @@ package test
 
 import (
 	"context"
-	"net/http"
 
 	pb "github.com/fregie/simple/proto/gen/go/api"
 )
@@ -34,10 +33,4 @@ func Reset(ctx context.Context, srv pb.SimpleAPIClient) error {
 		}
 	}
 	return nil
-}
-
-var server = &http.Server{
-	Handler: http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
-		w.Write([]byte("hello world"))
-	}),
 }
