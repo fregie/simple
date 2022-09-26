@@ -34,11 +34,23 @@ adapter-shadowsocks:
 	go build -o output/adapter-shadowsocks ./adapter/shadowsocks
 
 simple: protobuf
-	go build -o output/simple
+	go build -ldflags "\
+		-X ${VERSION_PACKAGE_NAME}.Version=${BUILD_VERSION} \
+		-X '${VERSION_PACKAGE_NAME}.BuildTime=${BUILD_TIME}' \
+		-X '${VERSION_PACKAGE_NAME}.GitCommitSHA1=${GIT_COMMIT_SHA1}' \
+		-X '${VERSION_PACKAGE_NAME}.Describe=${DESCRIBE}' \
+		-X '${VERSION_PACKAGE_NAME}.Name=${BUILD_NAME}'" \
+		-o output/simple
 
 .PHONY: spctl
 spctl:
-	go build -ldflags="-s -w" -o output/spctl ./spctl
+	go build -ldflags="-s -w \
+		-X ${VERSION_PACKAGE_NAME}.Version=${BUILD_VERSION} \
+		-X '${VERSION_PACKAGE_NAME}.BuildTime=${BUILD_TIME}' \
+		-X '${VERSION_PACKAGE_NAME}.GitCommitSHA1=${GIT_COMMIT_SHA1}' \
+		-X '${VERSION_PACKAGE_NAME}.Describe=${DESCRIBE}' \
+		-X '${VERSION_PACKAGE_NAME}.Name=${BUILD_NAME}'" \
+		-o output/spctl ./spctl
 
 .PHONY: docker
 docker:
